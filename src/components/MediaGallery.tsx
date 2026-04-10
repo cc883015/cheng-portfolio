@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ZoomIn } from 'lucide-react'
-import { useImageLightbox } from '../context/ImageLightboxContext'
+import { useImageLightbox } from '../context/ImageLightboxContext.jsx'
 
 type Props = {
   urls: string[]
