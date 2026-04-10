@@ -163,7 +163,7 @@ const timelineRaw: TimelineItem[] = [
   },
   {
     date: '2024-06',
-    displayDate: { en: '2019 – Jun 2024', zh: '2019年 – 2024年6月' },
+    displayDate: { en: '2017 – Jun 2021', zh: '2017年 – 2021年6月' },
     type: 'education',
     title: { en: "Bachelor's — Software Engineering & Economics", zh: '学士 — 软件工程与经济学' },
     subtitle: { en: 'Undergraduate institution · China', zh: '本科院校 · 中国' },
