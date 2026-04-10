@@ -162,7 +162,7 @@ const timelineRaw: TimelineItem[] = [
     images: ['/images/portfolio/edu-qut.jpg'],
   },
   {
-    date: '2024-06',
+    date: '2017-06',
     displayDate: { en: '2017 – Jun 2021', zh: '2017年 – 2021年6月' },
     type: 'education',
     title: { en: "Bachelor's — Software Engineering & Economics", zh: '学士 — 软件工程与经济学' },
