@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base ── */
+:root {
+  --cyber: #5eead4;
+  --cyber-dim: #2dd4bf;
+  --midnight: #161a24;
+  --midnight-deep: #12151c;
+  --grid-color: rgba(94, 234, 212, 0.035);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cyber-dim) var(--midnight-deep);
+}
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--midnight-deep);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(45, 212, 191, 0.08), transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 100%, rgba(99, 102, 241, 0.06), transparent 45%),
+    linear-gradient(180deg, #141824 0%, var(--midnight-deep) 35%, #161a24 100%);
+  color: #e2e4eb;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--midnight-deep); }
+::-webkit-scrollbar-thumb { background: var(--cyber-dim); border-radius: 3px; }
+
+/* ── Grid Background ── */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ── Noise Overlay ── */
+.noise::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Scan Line Effect ── */
+.scan-line::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyber), transparent);
+  opacity: 0.06;
+  animation: scanLine 4s linear infinite;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+@keyframes scanLine {
+  0% { transform: translateY(-10px); }
+  100% { transform: translateY(100vh); }
+}
+
+/* ── Glow Utilities ── */
+.glow-text {
+  text-shadow: 0 0 20px rgba(94, 234, 212, 0.28), 0 0 40px rgba(94, 234, 212, 0.1);
+}
+
+.glow-border {
+  box-shadow: 0 0 20px rgba(94, 234, 212, 0.08), inset 0 0 20px rgba(94, 234, 212, 0.02);
+}
+
+.glow-dot {
+  box-shadow: 0 0 8px var(--cyber), 0 0 16px rgba(94, 234, 212, 0.28);
+}
+
+/* ── Card Glass Effect ── */
+.glass-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(94, 234, 212, 0.14);
+  box-shadow: 0 8px 40px rgba(94, 234, 212, 0.06), 0 0 0 1px rgba(94, 234, 212, 0.07);
+  transform: translateY(-2px);
+}
+
+/* ── Timeline ── */
+.timeline-line {
+  background: linear-gradient(180deg, var(--cyber) 0%, rgba(94, 234, 212, 0.1) 100%);
+}
+
+/* ── Tag Chip ── */
+.tag-chip {
+  @apply px-3 py-1 text-xs rounded-full border;
+  background: rgba(94, 234, 212, 0.06);
+  border-color: rgba(94, 234, 212, 0.14);
+  color: var(--cyber);
+}
+
+/* ── Stagger Animation Delays ── */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* ── Section Reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Link Hover ── */
+a.cyber-link {
+  position: relative;
+  color: var(--cyber);
+  text-decoration: none;
+}
+
+a.cyber-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--cyber);
+  transition: width 0.3s ease;
+}
+
+a.cyber-link:hover::after {
+  width: 100%;
+}
