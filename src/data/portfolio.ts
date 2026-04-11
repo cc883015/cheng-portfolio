@@ -369,6 +369,33 @@ Subjective and objective AF tuning; supported test teams and customers with issu
     images: ['/images/portfolio/huaqin-campus-night.png', '/images/portfolio/huaqin-team-event.png'],
   },
   {
+    date: '2026-04',
+    displayDate: { en: 'Apr 2026', zh: '2026年4月' },
+    type: 'project',
+    title: {
+      en: 'Personal Portfolio — Professional Profile Site',
+      zh: '个人作品集网站 — 职业档案站点',
+    },
+    subtitle: {
+      en: 'React · TypeScript · Vite · Tailwind · Cloudflare Workers',
+      zh: 'React · TypeScript · Vite · Tailwind · Cloudflare Workers',
+    },
+    description: {
+      en: `A production-minded single-page application that presents my professional narrative end-to-end: biography, education, awards, employment history, project case studies, a structured skills taxonomy, and contact pathways—implemented as a modular React 19 + TypeScript codebase with Vite for fast iteration and a typed build pipeline.
+
+The interface follows a cohesive dark-theme design system: responsive layouts from mobile to desktop, glass-style surfaces, deliberate typography (Space Grotesk / DM Sans / mono accents), scroll-reveal motion with reduced-motion fallbacks, and an accessible image lightbox. Context-driven English/Chinese switching keeps copy maintainable without duplicating routes.
+
+Deployed on Cloudflare Workers for edge-cached static delivery—demonstrating not only component architecture, custom hooks, and separation of data vs. presentation, but also the ability to ship a minified, cache-friendly bundle suitable for real-world hosting and performance constraints.`,
+      zh: `面向真实交付的单页应用，用于系统化呈现个人职业叙事：关于、教育、荣誉、工作履历、项目案例、结构化技能矩阵与联系方式；以 React 19 + TypeScript 模块化实现，配合 Vite 构建与类型检查，形成可维护、可迭代的前端工程基线。
+
+界面采用统一的深色主题设计系统：自移动端至桌面的响应式布局、玻璃拟态层次、克制的字体与等宽点缀、滚动显现动效并兼顾「减少动态」系统偏好，以及可访问的图片灯箱体验。通过 Context 驱动中英切换，在单一路由下集中维护文案与数据结构。
+
+站点通过 Cloudflare Workers 在全球边缘交付静态资源，体现除组件拆分、自定义 Hook、数据与视图分离之外，将产物压缩与缓存策略纳入考量、面向真实托管与性能约束的端到端交付能力。`,
+    },
+    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Cloudflare Workers'],
+    link: 'https://github.com/cc883015/cheng-portfolio',
+  },
+  {
     date: '2026-03',
     displayDate: { en: 'Mar 2026', zh: '2026年3月' },
     type: 'project',
