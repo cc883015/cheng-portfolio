@@ -51,8 +51,8 @@ export const profile = {
   name: 'Charles Chen',
   nickname: '',
   title: {
-    en: 'IT Support & Hotel management & Cybersecurity & Image signal processing Engineering(ISP)',
-    zh: 'IT支持 & 酒店管理 & 网络安全 & 影像信号处理工程(ISP)',
+    en: 'IT Support & Hotel Management & Cybersecurity & Image Signal Processing (ISP)',
+    zh: 'IT 支持 · 酒店管理 · 网络安全 · 影像信号处理（ISP）',
   } satisfies L10n,
   location: {
     en: 'Brisbane, Australia',
@@ -98,7 +98,6 @@ export const socialLinks: SocialLink[] = [
 ]
 
 export const skillCategories: SkillCategory[] = [
-  
   {
     name: { en: 'Imaging & Camera', zh: '影像与相机' },
     skills: ['ISP', 'Camera Tuning', 'AF / AE / AWB', 'MTK Platforms', 'Lab & Field Validation', 'Automotive Cameras'],
@@ -162,7 +161,19 @@ const timelineRaw: TimelineItem[] = [
     tags: ['Cybersecurity', 'Networking', 'Cryptography'],
     images: ['/images/portfolio/edu-qut.jpg'],
   },
-
+  {
+    date: '2024-06',
+    displayDate: { en: '2017 – Jun 2021', zh: '2017年 – 2021年6月' },
+    type: 'education',
+    title: { en: "Bachelor's — Software Engineering & Economics", zh: '学士 — 软件工程与经济学' },
+    subtitle: { en: 'Undergraduate institution · China', zh: '本科院校 · 中国' },
+    description: {
+      en: 'Combined software engineering training with economics coursework.',
+      zh: '软件工程与经济学复合培养背景。',
+    },
+    tags: ['Software Engineering', 'Economics'],
+    images: ['/images/portfolio/edu-bachelor.jpg'],
+  },
   {
     date: '2024-08',
     displayDate: { en: 'Aug 2024 – Present', zh: '2024年8月 – 至今' },
@@ -258,27 +269,9 @@ Subjective and objective AF tuning; supported test teams and customers with issu
 
 （4）通过参数调试配合性能与功耗团队，缩短性能与对焦相关线程耗时；与 AE、ISP 等模块协同联调。`,
     },
-
-    
     tags: ['ISP', 'MTK', 'AF', 'Cameras', 'Agile'],
     images: ['/images/portfolio/huaqin-campus-night.png', '/images/portfolio/huaqin-team-event.png'],
   },
-
-  {
-    date: '2017-06',
-    displayDate: { en: '2017 – Jun 2021', zh: '2017年 – 2021年6月' },
-    type: 'education',
-    title: { en: "Bachelor's — Software Engineering & Economics", zh: '学士 — 软件工程与经济学' },
-    subtitle: { en: 'Undergraduate institution · China', zh: '本科院校 · 中国' },
-    description: {
-      en: 'Combined software engineering training with economics coursework.',
-      zh: '软件工程与经济学复合培养背景。',
-    },
-    tags: ['Software Engineering', 'Economics'],
-    images: ['/images/portfolio/edu-bachelor.jpg'],
-  },
-
-
   {
     date: '2026-03',
     displayDate: { en: 'Mar 2026', zh: '2026年3月' },
@@ -440,3 +433,19 @@ export const timelineItems = [...timelineRaw].sort((a, b) => {
   if (byDate !== 0) return byDate
   return a.title.en.localeCompare(b.title.en)
 })
+
+function sortTimelineItems(items: TimelineItem[]): TimelineItem[] {
+  return [...items].sort((a, b) => {
+    const d = b.date.localeCompare(a.date)
+    if (d !== 0) return d
+    return a.title.en.localeCompare(b.title.en)
+  })
+}
+
+/** 按页面区块拆分（教育 → 荣誉 → 工作 → 项目 → 证书） */
+export const timelineByCategory = {
+  education: sortTimelineItems(timelineItems.filter((i) => i.type === 'education')),
+  work: sortTimelineItems(timelineItems.filter((i) => i.type === 'work')),
+  project: sortTimelineItems(timelineItems.filter((i) => i.type === 'project')),
+  cert: sortTimelineItems(timelineItems.filter((i) => i.type === 'cert')),
+}

@@ -15,20 +15,15 @@ Portfolio images — how to add / maintain
    - About section gallery: profile.aboutImages = ['...','...'] in portfolio.ts
    - Missing files auto-hide that slot (no broken icons)
 
-3) Personal updates / LinkedIn honors (个人动态)
+3) Awards (LinkedIn-style honors)
    - Edit linkedInHighlights in src/data/portfolio.ts
    - Optional: image (one) or images (several), same as timeline
 
 4) After adding static files, update portfolio.ts — thumbnails also open in a lightbox when clicked.
-
-5) Interactive certificate vault (separate page)
-   - Open /certificates in the site. Uploads are stored in the browser (localStorage), not in this folder.
-   - Export JSON from that page before clearing browser data.
 
 ---
 中文摘要
 --------
 头像：保存为 public/images/portfolio/profile.jpg，并在 portfolio.ts 的 profile.avatar 填写路径。
 履历缩略图：放进本目录，在 portfolio.ts 写 image 或 images；点击缩略图可放大查看。
-荣誉动态：编辑 linkedInHighlights。
-交互证书库：访问 /certificates，上传与排序保存在浏览器本地；重要资料请导出 JSON 备份。
+荣誉区块：编辑 linkedInHighlights（与 LinkedIn 荣誉一致）。

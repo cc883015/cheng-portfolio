@@ -21,7 +21,7 @@ export default function SocialIcons() {
             target="_blank"
             rel="noopener noreferrer"
             title={link.platform}
-            className="group relative w-11 h-11 rounded-xl border border-white/8 bg-white/[0.02] flex items-center justify-center hover:border-cyber/30 hover:bg-cyber/5 transition-all duration-300"
+            className="group relative w-11 h-11 rounded-xl glass-icon-btn flex items-center justify-center hover:border-cyber/35 hover:shadow-[0_0_24px_rgba(94,234,212,0.12)] transition-all duration-300"
           >
             <Icon className="w-4.5 h-4.5 text-white/40 group-hover:text-cyber transition-colors" />
             {/* Tooltip */}

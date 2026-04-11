@@ -19,6 +19,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
   scrollbar-width: thin;
   scrollbar-color: var(--cyber-dim) var(--midnight-deep);
 }
@@ -32,6 +33,7 @@ body {
     linear-gradient(180deg, #141824 0%, var(--midnight-deep) 35%, #161a24 100%);
   color: #e2e4eb;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ── Scrollbar ── */
@@ -93,16 +95,71 @@ body {
 
 /* ── Card Glass Effect ── */
 .glass-card {
-  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-  border: 1px solid rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px);
+  background: linear-gradient(145deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 45%, rgba(255,255,255,0.04) 100%);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.glass-card-strong {
+  background: linear-gradient(155deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.03) 50%, rgba(94,234,212,0.04) 100%);
+  border-color: rgba(255,255,255,0.12);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+}
+
 .glass-card:hover {
-  border-color: rgba(94, 234, 212, 0.14);
-  box-shadow: 0 8px 40px rgba(94, 234, 212, 0.06), 0 0 0 1px rgba(94, 234, 212, 0.07);
+  border-color: rgba(94, 234, 212, 0.2);
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(94, 234, 212, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transform: translateY(-2px);
+}
+
+/* ── Navbar glass ── */
+.nav-glass {
+  background: rgba(18, 21, 28, 0.45);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+
+.nav-glass-scrolled {
+  background: rgba(22, 26, 36, 0.78);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+}
+
+.glass-icon-btn {
+  background: linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.glass-nav-link {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-nav-link:hover {
+  background: rgba(94, 234, 212, 0.06);
+  border-color: rgba(94, 234, 212, 0.15);
+}
+
+.section-glass-wrap {
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 /* ── Timeline ── */

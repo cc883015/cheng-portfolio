@@ -2,14 +2,15 @@ import type { L10n } from './utils'
 import type { TimelineItem } from '../data/portfolio'
 
 export const navLabels: Record<string, L10n> = {
-  home: { en: 'Home', zh: '首页' },
+  brandHome: { en: 'Home page', zh: '首页' },
   about: { en: 'About', zh: '关于' },
-  updates: { en: 'Updates', zh: '动态' },
-  timeline: { en: 'Timeline', zh: '履历' },
+  education: { en: 'Education', zh: '教育' },
+  awards: { en: 'Awards', zh: '奖项' },
+  work: { en: 'Work', zh: '工作' },
+  projects: { en: 'Projects', zh: '项目' },
+  certifications: { en: 'Certificates', zh: '证书' },
   skills: { en: 'Skills', zh: '技能' },
   contact: { en: 'Contact', zh: '联系' },
-  resume: { en: 'Resume', zh: '简历' },
-  certVault: { en: 'Certificates', zh: '证书库' },
 }
 
 export const heroUi: {
@@ -56,40 +57,55 @@ export const aboutUi: {
   ],
 }
 
-export const updatesUi: {
+export const awardsUi: {
   sectionNum: L10n
   sectionTitle: L10n
   headline: L10n
-  sub: L10n
   viewLink: L10n
   linkedInCta: L10n
 } = {
-  sectionNum: { en: '02', zh: '02' },
-  sectionTitle: { en: 'UPDATES', zh: '个人动态' },
-  headline: { en: 'Honors & highlights', zh: '荣誉与动态' },
-  sub: {
-    en: 'Awards and honors (mirroring my LinkedIn profile). Add or edit entries in portfolio.ts → linkedInHighlights.',
-    zh: '荣誉与奖项（与领英「荣誉奖项」对应）。在 portfolio.ts 的 linkedInHighlights 数组中增删或修改条目。',
-  },
+  sectionNum: { en: '03', zh: '03' },
+  sectionTitle: { en: 'AWARDS', zh: '奖项' },
+  headline: { en: 'Awards & honors', zh: '奖项与荣誉' },
   viewLink: { en: 'Link', zh: '链接' },
   linkedInCta: { en: 'Open LinkedIn profile', zh: '打开领英主页' },
 }
 
+export const journeyUi = {
+  sections: {
+    education: {
+      id: 'education' as const,
+      sectionNum: { en: '02', zh: '02' } satisfies L10n,
+      sectionTitle: { en: 'EDUCATION', zh: '教育' } satisfies L10n,
+      headline: { en: 'Education', zh: '教育背景' } satisfies L10n,
+    },
+    work: {
+      id: 'work' as const,
+      sectionNum: { en: '04', zh: '04' } satisfies L10n,
+      sectionTitle: { en: 'WORK', zh: '工作' } satisfies L10n,
+      headline: { en: 'Work experience', zh: '工作经历' } satisfies L10n,
+    },
+    projects: {
+      id: 'projects' as const,
+      sectionNum: { en: '05', zh: '05' } satisfies L10n,
+      sectionTitle: { en: 'PROJECTS', zh: '项目' } satisfies L10n,
+      headline: { en: 'Projects', zh: '项目经历' } satisfies L10n,
+    },
+    certs: {
+      id: 'certifications' as const,
+      sectionNum: { en: '06', zh: '06' } satisfies L10n,
+      sectionTitle: { en: 'CERTIFICATIONS', zh: '证书' } satisfies L10n,
+      headline: { en: 'Professional certificates', zh: '专业证书' } satisfies L10n,
+    },
+  },
+} as const
+
+export type JourneySectionKey = keyof typeof journeyUi.sections
+
 export const timelineUi: {
-  sectionNum: L10n
-  sectionTitle: L10n
-  headline: L10n
-  sub: L10n
   viewLink: L10n
   typeLabels: Record<TimelineItem['type'], L10n>
 } = {
-  sectionNum: { en: '03', zh: '03' },
-  sectionTitle: { en: 'TIMELINE', zh: '履历时间线' },
-  headline: { en: 'Journey so far', zh: '经历与项目' },
-  sub: {
-    en: 'Work experience, certifications, projects, and education — most recent first.',
-    zh: '工作、证书、项目与教育背景，按时间倒序排列。',
-  },
   viewLink: { en: 'View', zh: '查看' },
   typeLabels: {
     work: { en: 'Work', zh: '工作' },
@@ -105,43 +121,9 @@ export const skillsUi: {
   sectionTitle: L10n
   headline: L10n
 } = {
-  sectionNum: { en: '04', zh: '04' },
+  sectionNum: { en: '07', zh: '07' },
   sectionTitle: { en: 'SKILLS', zh: '技能' },
   headline: { en: 'Tech stack', zh: '技术栈' },
-}
-
-export const certificatesPageUi: {
-  kicker: L10n
-  title: L10n
-  intro: L10n
-  backHome: L10n
-  exportJson: L10n
-  dropHint: L10n
-  limits: L10n
-  empty: L10n
-  titlePlaceholder: L10n
-  errTooLarge: L10n
-  errMaxItems: L10n
-  errRead: L10n
-} = {
-  kicker: { en: 'VAULT', zh: '证书库' },
-  title: { en: 'Certificate gallery', zh: '证书与证明文件' },
-  intro: {
-    en: 'Upload images of diplomas, badges, or screenshots. Drag cards to reorder. Data is saved only in this browser (localStorage). Export JSON as a backup before clearing browser data.',
-    zh: '在此上传各类证书、徽章或截图。拖拽卡片可调整顺序。数据仅保存在本机浏览器（localStorage）；清理浏览器数据前请用「导出 JSON」备份。',
-  },
-  backHome: { en: 'Back to portfolio', zh: '返回主页' },
-  exportJson: { en: 'Export JSON backup', zh: '导出 JSON 备份' },
-  dropHint: { en: 'Click or drop images here', zh: '点击或拖入图片' },
-  limits: {
-    en: 'Up to {n} items · max {mb} MB each · browser only',
-    zh: '最多 {n} 张 · 单张不超过 {mb} MB · 仅本机保存',
-  },
-  empty: { en: 'No certificates yet — upload above.', zh: '暂无证书，请在上方上传。' },
-  titlePlaceholder: { en: 'Label / title', zh: '证书名称（可编辑）' },
-  errTooLarge: { en: 'File too large (max 2.5 MB).', zh: '文件过大（单张上限 2.5 MB）。' },
-  errMaxItems: { en: 'Maximum number of items reached.', zh: '已达到最大张数上限。' },
-  errRead: { en: 'Could not read file.', zh: '无法读取该文件。' },
 }
 
 export const contactUi: {
@@ -153,7 +135,7 @@ export const contactUi: {
   cta: L10n
   footerTech: L10n
 } = {
-  sectionNum: { en: '05', zh: '05' },
+  sectionNum: { en: '08', zh: '08' },
   sectionTitle: { en: 'CONTACT', zh: '联系' },
   headline1: { en: "Let's build something", zh: '期待与您' },
   headline2: { en: 'together.', zh: '共同打造。' },
