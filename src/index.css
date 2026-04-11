@@ -9,6 +9,15 @@
   --midnight: #161a24;
   --midnight-deep: #12151c;
   --grid-color: rgba(94, 234, 212, 0.035);
+  /* 仅作 1px 边框：偏青铜金，避免亮块像铺满背景 */
+  --glass-gold-edge: linear-gradient(
+    135deg,
+    #252018 0%,
+    #5c4d28 28%,
+    #9a8240 52%,
+    #6b5a30 72%,
+    #1c1812 100%
+  );
 }
 
 * {
@@ -26,14 +35,117 @@ html {
 
 body {
   font-family: 'DM Sans', system-ui, sans-serif;
-  background: var(--midnight-deep);
+  background-color: #06080d;
   background-image:
-    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(45, 212, 191, 0.08), transparent 55%),
-    radial-gradient(ellipse 80% 50% at 100% 100%, rgba(99, 102, 241, 0.06), transparent 45%),
-    linear-gradient(180deg, #141824 0%, var(--midnight-deep) 35%, #161a24 100%);
+    radial-gradient(ellipse 90% 55% at 50% -15%, rgba(45, 212, 191, 0.14), transparent 52%),
+    radial-gradient(ellipse 70% 45% at 100% 10%, rgba(99, 102, 241, 0.1), transparent 48%),
+    radial-gradient(ellipse 50% 35% at 0% 80%, rgba(14, 165, 233, 0.08), transparent 50%),
+    linear-gradient(180deg, #0a0e16 0%, #080b12 38%, #06080d 100%);
   color: #e2e4eb;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+}
+
+/* Slow conic wash — reads as “alive” without distracting motion */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -60%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background: conic-gradient(
+    from 220deg at 50% 50%,
+    rgba(45, 212, 191, 0.07),
+    transparent 25%,
+    rgba(99, 102, 241, 0.06),
+    transparent 50%,
+    rgba(14, 165, 233, 0.05),
+    transparent 75%,
+    rgba(45, 212, 191, 0.06)
+  );
+  animation: ambientRotate 100s linear infinite;
+}
+
+@keyframes ambientRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Floating orbs (mounted in HomePage) */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  will-change: transform;
+  animation: ambientDrift 22s ease-in-out infinite;
+}
+
+.ambient-orb--a {
+  width: min(58vw, 520px);
+  height: min(58vw, 520px);
+  background: radial-gradient(circle, rgba(45, 212, 191, 0.38) 0%, transparent 68%);
+  top: -12%;
+  left: -18%;
+}
+
+.ambient-orb--b {
+  width: min(48vw, 440px);
+  height: min(48vw, 440px);
+  background: radial-gradient(circle, rgba(129, 140, 248, 0.32) 0%, transparent 68%);
+  bottom: 5%;
+  right: -14%;
+  animation-delay: -7s;
+  animation-duration: 28s;
+}
+
+.ambient-orb--c {
+  width: min(36vw, 360px);
+  height: min(36vw, 360px);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, transparent 68%);
+  top: 42%;
+  left: 28%;
+  animation-delay: -14s;
+  animation-duration: 32s;
+}
+
+.ambient-orb--d {
+  width: min(42vw, 380px);
+  height: min(42vw, 380px);
+  background: radial-gradient(circle, rgba(94, 234, 212, 0.12) 0%, transparent 65%);
+  bottom: 28%;
+  left: -8%;
+  animation-delay: -20s;
+  animation-duration: 26s;
+}
+
+@keyframes ambientDrift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  35% {
+    transform: translate(6vw, 5vh) scale(1.06);
+  }
+  70% {
+    transform: translate(-5vw, 4vh) scale(0.94);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  .ambient-orb {
+    animation: none !important;
+  }
 }
 
 /* ── Scrollbar ── */
@@ -93,65 +205,157 @@ body {
   box-shadow: 0 0 8px var(--cyber), 0 0 16px rgba(94, 234, 212, 0.28);
 }
 
-/* ── Card Glass Effect ── */
+/* ── 玻璃模块：内层深色磨砂 + 外层仅 1px 金色描边（金色不铺满卡面） ── */
 .glass-card {
-  background: linear-gradient(145deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 45%, rgba(255,255,255,0.04) 100%);
-  border: 1px solid rgba(255,255,255,0.1);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid transparent;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 100%) padding-box,
+    linear-gradient(160deg, rgba(12, 14, 22, 0.94) 0%, rgba(6, 8, 14, 0.97) 100%) padding-box,
+    var(--glass-gold-edge) border-box;
+  background-clip: padding-box, padding-box, border-box;
+  background-origin: padding-box, padding-box, border-box;
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 4px 28px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 0 14px rgba(212, 175, 55, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.glass-card-strong {
-  background: linear-gradient(155deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.03) 50%, rgba(94,234,212,0.04) 100%);
-  border-color: rgba(255,255,255,0.12);
-  backdrop-filter: blur(22px) saturate(160%);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
+/* About 右侧 Education / Focus / Background：再压暗、几乎不要金色泛光 */
+.glass-card.glass-card--about-stat {
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%) padding-box,
+    linear-gradient(165deg, rgba(8, 10, 16, 0.97) 0%, rgba(4, 5, 10, 0.99) 100%) padding-box,
+    var(--glass-gold-edge) border-box;
+  background-clip: padding-box, padding-box, border-box;
+  background-origin: padding-box, padding-box, border-box;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
 }
 
-.glass-card:hover {
-  border-color: rgba(94, 234, 212, 0.2);
+.glass-card.glass-card--about-stat:hover {
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.015) 100%) padding-box,
+    linear-gradient(165deg, rgba(10, 12, 18, 0.96) 0%, rgba(6, 7, 12, 0.99) 100%) padding-box,
+    var(--glass-gold-edge) border-box;
+  background-clip: padding-box, padding-box, border-box;
   box-shadow:
-    0 12px 48px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(94, 234, 212, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(94, 234, 212, 0.12),
+    0 0 12px rgba(212, 175, 55, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.38);
+}
+
+.glass-card-strong {
+  background:
+    linear-gradient(
+        155deg,
+        rgba(255, 255, 255, 0.06) 0%,
+        rgba(255, 255, 255, 0.02) 50%,
+        rgba(94, 234, 212, 0.035) 100%
+      )
+      padding-box,
+    linear-gradient(162deg, rgba(12, 14, 22, 0.92) 0%, rgba(6, 8, 14, 0.96) 100%) padding-box,
+    var(--glass-gold-edge) border-box;
+  background-clip: padding-box, padding-box, border-box;
+  background-origin: padding-box, padding-box, border-box;
+  border: 1px solid transparent;
+  backdrop-filter: blur(26px) saturate(165%);
+  -webkit-backdrop-filter: blur(26px) saturate(165%);
+  box-shadow:
+    0 6px 36px rgba(0, 0, 0, 0.48),
+    0 0 0 1px rgba(0, 0, 0, 0.38),
+    0 0 16px rgba(212, 175, 55, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.38);
+}
+
+.glass-card:hover:not(.glass-card--about-stat) {
+  background:
+    linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(255, 255, 255, 0.03) 45%,
+        rgba(94, 234, 212, 0.05) 100%
+      )
+      padding-box,
+    linear-gradient(160deg, rgba(14, 16, 24, 0.93) 0%, rgba(8, 10, 16, 0.97) 100%) padding-box,
+    var(--glass-gold-edge) border-box;
+  background-clip: padding-box, padding-box, border-box;
+  box-shadow:
+    0 12px 44px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 0 18px rgba(212, 175, 55, 0.07),
+    0 0 20px rgba(94, 234, 212, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.32);
+  transform: translateY(-2px);
+}
+
+.glass-card-strong:hover {
+  background:
+    linear-gradient(
+        155deg,
+        rgba(255, 255, 255, 0.09) 0%,
+        rgba(255, 255, 255, 0.03) 50%,
+        rgba(94, 234, 212, 0.06) 100%
+      )
+      padding-box,
+    linear-gradient(162deg, rgba(14, 16, 24, 0.9) 0%, rgba(8, 10, 18, 0.95) 100%) padding-box,
+    var(--glass-gold-edge) border-box;
+  background-clip: padding-box, padding-box, border-box;
+  box-shadow:
+    0 14px 48px rgba(0, 0, 0, 0.52),
+    0 0 0 1px rgba(0, 0, 0, 0.42),
+    0 0 20px rgba(212, 175, 55, 0.08),
+    0 0 22px rgba(94, 234, 212, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35);
   transform: translateY(-2px);
 }
 
 /* ── Navbar glass ── */
 .nav-glass {
-  background: rgba(18, 21, 28, 0.45);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  background: rgba(12, 14, 22, 0.52);
+  backdrop-filter: blur(22px) saturate(165%);
+  -webkit-backdrop-filter: blur(22px) saturate(165%);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
 }
 
 .nav-glass-scrolled {
-  background: rgba(22, 26, 36, 0.78);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  background: rgba(10, 12, 20, 0.82);
+  backdrop-filter: blur(28px) saturate(175%);
+  -webkit-backdrop-filter: blur(28px) saturate(175%);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
 
 .glass-icon-btn {
-  background: linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
-  border: 1px solid rgba(255,255,255,0.1);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .glass-nav-link {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
 }
 
 .glass-nav-link:hover {
-  background: rgba(94, 234, 212, 0.06);
-  border-color: rgba(94, 234, 212, 0.15);
+  background: rgba(94, 234, 212, 0.1);
+  border-color: rgba(94, 234, 212, 0.22);
 }
 
 .section-glass-wrap {
@@ -160,6 +364,145 @@ body {
   background: rgba(255,255,255,0.02);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Metallic gold frame (Hero / About highlights) ── */
+/* Outer ring: bronze / antique gold — not a full bright yellow fill */
+.metal-gold-frame {
+  position: relative;
+  border-radius: 1.35rem;
+  padding: 2px;
+  background: linear-gradient(
+    145deg,
+    #1f1b14 0%,
+    #4a3f24 24%,
+    #7d6a38 48%,
+    #5c4d28 72%,
+    #16130e 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(94, 234, 212, 0.12),
+    0 16px 48px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+}
+
+.metal-gold-frame__inner {
+  border-radius: calc(1.35rem - 2px);
+  background:
+    linear-gradient(168deg, rgba(42, 44, 56, 0.97) 0%, rgba(20, 22, 30, 0.99) 45%, rgba(30, 32, 42, 0.98) 100%),
+    repeating-linear-gradient(
+      105deg,
+      rgba(255, 255, 255, 0.02) 0px,
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 60px rgba(212, 175, 55, 0.04);
+}
+
+/* Hero — lighter glass (backdrop shows through) */
+.metal-gold-frame__inner.hero-glass {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.03) 42%,
+    rgba(94, 234, 212, 0.06) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(32px) saturate(175%);
+  -webkit-backdrop-filter: blur(32px) saturate(175%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 20px 60px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(212, 175, 55, 0.08);
+}
+
+/* About / year-plan — dark frosted inset inside gold ring (readable body copy) */
+.metal-gold-frame__inner.about-gold-inner {
+  background: linear-gradient(
+    168deg,
+    rgba(12, 14, 20, 0.96) 0%,
+    rgba(8, 10, 16, 0.98) 42%,
+    rgba(14, 16, 24, 0.96) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(28px) saturate(155%);
+  -webkit-backdrop-filter: blur(28px) saturate(155%);
+  box-shadow:
+    inset 0 0 100px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+/* Hero avatar — teal accent ring (matches cyber palette, readable on dark card) */
+.hero-avatar-ring {
+  border-radius: 1rem;
+  padding: 2px;
+  background: linear-gradient(
+    145deg,
+    rgba(45, 212, 191, 0.55) 0%,
+    rgba(94, 234, 212, 0.22) 45%,
+    rgba(20, 184, 166, 0.5) 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(94, 234, 212, 0.2),
+    0 10px 32px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.hero-avatar-ring__inner {
+  border-radius: calc(1rem - 2px);
+  overflow: hidden;
+  background: linear-gradient(165deg, rgba(28, 30, 38, 1) 0%, rgba(14, 16, 22, 1) 100%);
+}
+
+/* Navbar — Queensland CTA */
+.nav-gold-cta {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.65rem;
+  color: rgba(245, 230, 180, 0.88);
+  background: linear-gradient(160deg, rgba(60, 52, 28, 0.42) 0%, rgba(28, 26, 22, 0.65) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 2px 12px rgba(0, 0, 0, 0.35);
+  transition: color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  max-width: 14rem;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.nav-gold-cta:hover {
+  color: #fef3c7;
+  border-color: rgba(250, 204, 21, 0.65);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+/* Year plan — in-progress ring */
+.year-plan-progress-ring {
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 9999px;
+  border: 2px solid rgba(234, 179, 8, 0.35);
+  border-top-color: #eab308;
+  animation: yearPlanSpin 0.85s linear infinite;
+}
+
+@keyframes yearPlanSpin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── Timeline ── */

@@ -1,9 +1,10 @@
-import { Mail, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Mail } from 'lucide-react'
 import { profile, socialLinks } from '../data/portfolio'
 import useReveal from '../hooks/useReveal'
 import { useLanguage } from '../context/LanguageContext'
 import { t } from '../i18n/utils'
 import { contactUi } from '../i18n/ui'
+import SectionHeadline from './SectionHeadline'
 
 export default function Contact() {
   const ref = useReveal()
@@ -19,11 +20,13 @@ export default function Contact() {
           <div className="h-px w-16 bg-gradient-to-l from-cyber/20 to-transparent" />
         </div>
 
-        <h2 className="text-3xl sm:text-5xl font-bold text-white mb-6" style={{ fontFamily: '"Space Grotesk", system-ui' }}>
-          {t(contactUi.headline1, lang)}
-          <br />
-          <span className="text-cyber glow-text">{t(contactUi.headline2, lang)}</span>
-        </h2>
+        <SectionHeadline Icon={Mail} variant="centered" className="mb-6">
+          <>
+            {t(contactUi.headline1, lang)}
+            <br />
+            <span className="text-cyber glow-text">{t(contactUi.headline2, lang)}</span>
+          </>
+        </SectionHeadline>
 
         <p className="text-white/40 text-sm max-w-md mx-auto mb-10 leading-relaxed">{t(contactUi.body, lang)}</p>
 

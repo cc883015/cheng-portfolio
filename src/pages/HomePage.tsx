@@ -9,9 +9,15 @@ import { timelineByCategory } from '../data/portfolio'
 
 export default function HomePage() {
   return (
-    <div className="noise scan-line">
+    <div className="noise scan-line relative min-h-screen">
+      <div className="ambient-bg" aria-hidden>
+        <span className="ambient-orb ambient-orb--a" />
+        <span className="ambient-orb ambient-orb--b" />
+        <span className="ambient-orb ambient-orb--c" />
+        <span className="ambient-orb ambient-orb--d" />
+      </div>
       <Navbar />
-      <main>
+      <main className="relative z-[1]">
         <Hero />
         <About />
         <JourneySection sectionKey="education" items={timelineByCategory.education} />

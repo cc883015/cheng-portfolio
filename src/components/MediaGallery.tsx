@@ -41,8 +41,8 @@ export default function MediaGallery({ urls, variant = 'strip', className = '' }
               onClick={() => handleOpen(src)}
               className={
                 isHero
-                  ? 'group relative w-full aspect-[4/3] sm:aspect-square max-h-72 rounded-xl overflow-hidden border border-white/10 bg-white/[0.02] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cyber/50'
-                  : 'group relative shrink-0 w-[11.5rem] h-[8.5rem] sm:w-[13rem] sm:h-[9.5rem] rounded-xl overflow-hidden border border-white/10 bg-white/[0.02] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cyber/50'
+                  ? 'group relative w-full aspect-[4/3] sm:aspect-square max-h-72 rounded-xl overflow-hidden border border-white/12 bg-white/[0.04] backdrop-blur-sm text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cyber/50'
+                  : 'group relative shrink-0 w-[11.5rem] h-[8.5rem] sm:w-[13rem] sm:h-[9.5rem] rounded-xl overflow-hidden border border-white/12 bg-white/[0.04] backdrop-blur-sm text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cyber/50'
               }
             >
               <img

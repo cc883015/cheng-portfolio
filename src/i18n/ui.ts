@@ -1,6 +1,12 @@
 import type { L10n } from './utils'
 import type { TimelineItem } from '../data/portfolio'
 
+/** Queensland Government — site-wide nav CTA (label kept in English per design). */
+export const navBrisbaneCta = {
+  href: 'https://www.qld.gov.au/',
+  label: { en: 'dedicate to the better brisbane', zh: 'dedicate to the better brisbane' } satisfies L10n,
+}
+
 export const navLabels: Record<string, L10n> = {
   brandHome: { en: 'Home page', zh: '首页' },
   about: { en: 'About', zh: '关于' },
@@ -18,26 +24,67 @@ export const heroUi: {
   greeting: L10n
   scroll: L10n
   aka: L10n
+  taglineExtra: L10n
 } = {
   badge: { en: 'AVAILABLE FOR OPPORTUNITIES', zh: '欢迎合作与机会' },
   greeting: { en: '> hello_world —user', zh: '> hello_world —用户' },
   scroll: { en: 'SCROLL', zh: '下滑' },
   aka: { en: 'aka', zh: '亦称' },
+  taglineExtra: {
+    en: 'AI · IELTS · PTE — explore, learn, discuss — always open to chat',
+    zh: 'AI · 雅思 · PTE — 探索钻研 — 欢迎讨论',
+  },
 }
+
+export type YearPlanStatus = 'done' | 'progress' | 'planned'
 
 export const aboutUi: {
   sectionNum: L10n
   sectionTitle: L10n
-  headline1: L10n
-  headline2: L10n
+  headline: L10n
   galleryLabel: L10n
+  yearPlanTitle: L10n
+  yearPlanItems: { id: string; label: L10n; status: YearPlanStatus }[]
   stats: { label: L10n; value: L10n; detail: L10n }[]
 } = {
   sectionNum: { en: '01', zh: '01' },
   sectionTitle: { en: 'ABOUT', zh: '关于' },
-  headline1: { en: 'Building secure systems,', zh: '构建可靠、安全的系统，' },
-  headline2: { en: 'crafting digital experiences.', zh: '打磨流畅的数字体验。' },
+  headline: {
+    en: 'Committed to delivering better digital experiences for clients.',
+    zh: '致力于为客户打造更好的数字体验。',
+  },
   galleryLabel: { en: 'GALLERY', zh: '附图' },
+  yearPlanTitle: { en: 'One-year plan', zh: '一年计划' },
+  yearPlanItems: [
+    {
+      id: 'gits',
+      label: { en: 'Google IT Support Professional Certificate', zh: 'Google IT Support 专业证书' },
+      status: 'done',
+    },
+    {
+      id: 'gcsec',
+      label: { en: 'Google Cybersecurity Professional Certificate', zh: 'Google Cybersecurity 专业证书' },
+      status: 'progress',
+    },
+    {
+      id: 'az900',
+      label: { en: 'Microsoft AZ-900 (Azure Fundamentals)', zh: 'Microsoft AZ-900（Azure 基础）' },
+      status: 'planned',
+    },
+    {
+      id: 'aplus',
+      label: { en: 'CompTIA A+', zh: 'CompTIA A+' },
+      status: 'planned',
+    },
+    {
+      id: 'tafe-hm',
+      label: {
+        en: 'Jul 2026 intake — QLD TAFE one-year hotel management preparatory program',
+        zh: '2026 年 7 月入读昆士兰 TAFE 一年期酒店管理预备课程',
+      },
+      status: 'planned',
+    },
+  ],
   stats: [
     {
       label: { en: 'Education', zh: '教育' },

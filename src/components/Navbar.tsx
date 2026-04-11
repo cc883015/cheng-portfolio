@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Terminal, Menu, X } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 import { t } from '../i18n/utils'
-import { navLabels } from '../i18n/ui'
+import { navBrisbaneCta, navLabels } from '../i18n/ui'
 
 const navKeys = [
   { key: 'about', hash: 'about' },
@@ -30,21 +30,42 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'nav-glass-scrolled border-b border-white/[0.07]'
+          ? 'nav-glass-scrolled border-b border-white/[0.08]'
           : 'nav-glass border-b border-transparent'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
-        <a href="#" className="flex items-center gap-2.5 group shrink-0">
-          <div className="glass-icon-btn w-9 h-9 rounded-xl flex items-center justify-center transition-transform group-hover:scale-[1.02]">
-            <Terminal className="w-4 h-4 text-cyber" />
-          </div>
-          <span className="font-mono text-sm text-white/75 group-hover:text-cyber transition-colors hidden sm:block tracking-wide">
-            {t(navLabels.brandHome, lang)}
-          </span>
-        </a>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-2">
+        <div className="flex-1 flex justify-start items-center gap-2 min-w-0">
+          <img
+            src="/images/brisbane-council-mark.svg"
+            alt=""
+            width={32}
+            height={32}
+            className="h-8 w-8 rounded-lg shrink-0 shadow-[0_4px_20px_rgba(0,0,0,0.35)] ring-1 ring-white/15 bg-white/5 backdrop-blur-sm"
+            decoding="async"
+          />
+          <a href="#" className="flex items-center gap-2.5 group shrink-0 min-w-0">
+            <div className="glass-icon-btn w-9 h-9 rounded-xl flex items-center justify-center transition-transform group-hover:scale-[1.02]">
+              <Terminal className="w-4 h-4 text-cyber" />
+            </div>
+            <span className="font-mono text-sm text-white/75 group-hover:text-cyber transition-colors hidden sm:block tracking-wide truncate">
+              {t(navLabels.brandHome, lang)}
+            </span>
+          </a>
+        </div>
 
-        <div className="hidden lg:flex items-center gap-1.5 flex-wrap justify-end max-w-[58%] xl:max-w-none">
+        <div className="hidden lg:flex shrink-0 justify-center px-1">
+          <a
+            href={navBrisbaneCta.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-gold-cta font-mono"
+          >
+            {t(navBrisbaneCta.label, lang)}
+          </a>
+        </div>
+
+        <div className="flex-1 hidden lg:flex items-center gap-1.5 flex-wrap justify-end min-w-0">
           {navKeys.map((item) => (
             <a
               key={item.hash}
@@ -76,7 +97,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-2 lg:hidden shrink-0">
           <div className="glass-icon-btn flex items-center rounded-xl p-0.5">
             <button
               type="button"
@@ -110,6 +131,15 @@ export default function Navbar() {
 
       {mobileOpen && (
         <div className="lg:hidden nav-glass-scrolled border-b border-white/[0.07] px-6 pb-5 max-h-[min(70vh,calc(100dvh-4rem))] overflow-y-auto overscroll-y-contain">
+          <a
+            href={navBrisbaneCta.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileOpen(false)}
+            className="nav-gold-cta font-mono block w-fit mx-auto mb-4 text-center"
+          >
+            {t(navBrisbaneCta.label, lang)}
+          </a>
           {navKeys.map((item) => (
             <a
               key={item.hash}

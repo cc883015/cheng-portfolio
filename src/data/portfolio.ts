@@ -1,7 +1,7 @@
 // ============================================================
 // 个人数据维护说明
 // ────────────────────────────────────────────────────────────
-// • 头像：profile.avatar → public/images/portfolio/
+// • 头像：profile.avatar → public/images/profile.jpg（或 portfolio 目录下资源）
 // • 关于区附图：profile.aboutImages（字符串数组，可多张横滑）
 // • 履历 / 荣誉：每条可用 image（单张）或 images（多张，优先）
 // • 图片放 public/images/portfolio/，路径以 /images/portfolio/ 开头
@@ -51,15 +51,15 @@ export const profile = {
   name: 'Charles Chen',
   nickname: '',
   title: {
-    en: 'IT Support & Hotel Management & Cybersecurity & Image Signal Processing (ISP)',
-    zh: 'IT 支持 · 酒店管理 · 网络安全 · 影像信号处理（ISP）',
+    en: 'IT Technical Support · Hotel Management · Frontend Development · Cybersecurity · Image Signal Processing (ISP)',
+    zh: 'IT 技术支持 · 酒店管理 · 前端开发 · 网络安全 · 影像信号处理（ISP）',
   } satisfies L10n,
   location: {
     en: 'Brisbane, Australia',
     zh: '澳大利亚布里斯班',
   } satisfies L10n,
   email: 'your.email@example.com',
-  avatar: '/images/portfolio/profile.jpg',
+  avatar: '/images/profile.jpg',
   resumeUrl: '/resume.pdf',
   /** 关于区正文下方的附图（可选，多张横滑） */
   aboutImages: ['/images/portfolio/work-china-experience-overview.png'],
@@ -99,16 +99,50 @@ export const socialLinks: SocialLink[] = [
 
 export const skillCategories: SkillCategory[] = [
   {
-    name: { en: 'Imaging & Camera', zh: '影像与相机' },
-    skills: ['ISP', 'Camera Tuning', 'AF / AE / AWB', 'MTK Platforms', 'Lab & Field Validation', 'Automotive Cameras'],
+    name: { en: 'IT Support & Service Desk', zh: 'IT 支持与服务台' },
+    skills: [
+      'Windows 10/11 desktop troubleshooting',
+      'macOS end-user support',
+      'Microsoft 365 (Outlook, Teams, OneDrive, SharePoint Online)',
+      'Office suite (Word, Excel, PowerPoint)',
+      'Google Workspace admin & Gmail (mailboxes, aliases, groups)',
+      'Active Directory / Entra ID (Azure AD) user & group lifecycle',
+      'Group Policy (GPO) awareness',
+      'ITIL-style incident / request / change handling',
+      'Service desk ticketing (ServiceNow, Jira SM, Freshservice)',
+      'SLA triage, prioritisation & escalation',
+      'Remote support (RDP, Quick Assist, screen-share tools)',
+      'VPN clients & connectivity basics',
+      'LAN / Wi-Fi diagnostics (DHCP, DNS, IP, default gateway)',
+      'Printer & MFP setup (drivers, queues, scan-to-email)',
+      'Endpoint imaging / provisioning awareness (SCCM, Intune)',
+      'Patch & update hygiene (WSUS, WUfB concepts)',
+      'Antivirus / Microsoft Defender & EDR first-line',
+      'Phishing triage & end-user security awareness',
+      'Mobile devices (iOS / Android, MDM enrolment basics)',
+      'Backup & restore awareness (Veeam, cloud backup, versioning)',
+      'Asset tagging & IMAC (install / move / add / change)',
+      'Knowledge base articles & runbooks',
+      'Written & phone communication (gov / enterprise tone)',
+      'Accessibility basics (WCAG awareness, screen readers)',
+      'PowerShell / CMD for repetitive fixes',
+      'Multi-monitor & peripheral troubleshooting',
+      'Software licence & SaaS access requests',
+      'Onboarding / offboarding checklist support',
+      'Meeting room AV & VC first-line (Teams / Zoom)',
+      'CCTV & access-control vendor liaison (first-line)',
+      'POS / EFTPOS terminal first-line & receipting',
+      'PCI-DSS awareness in payment environments',
+      'Clear desk / clean screen & records-handling awareness',
+    ],
+  },
+  {
+    name: { en: 'Development', zh: '开发' },
+    skills: ['React', 'TypeScript', 'Node.js', 'Python', 'C', 'Tailwind CSS', 'Vite', 'Flask', 'REST APIs', 'Git workflows'],
   },
   {
     name: { en: 'Cybersecurity', zh: '网络安全' },
     skills: ['Network Security', 'SIEM (Splunk)', 'Vulnerability Assessment', 'ISO 27001', 'Incident Response'],
-  },
-  {
-    name: { en: 'Development', zh: '开发' },
-    skills: ['React', 'TypeScript', 'Node.js', 'Python', 'C', 'Tailwind CSS', 'Vite', 'Flask'],
   },
   {
     name: { en: 'Infrastructure', zh: '基础设施' },
@@ -117,6 +151,68 @@ export const skillCategories: SkillCategory[] = [
   {
     name: { en: 'Tools & Platforms', zh: '工具与平台' },
     skills: ['Git', 'VS Code', 'Wireshark', 'Figma', 'Jira', 'Power BI', 'MongoDB'],
+  },
+  {
+    name: { en: 'Hotel & OTA Operations', zh: '酒店与渠道运营' },
+    skills: [
+      'Trip.com (Ctrip) partner hub / extranet',
+      'Expedia Partner Central',
+      'Booking.com Extranet / Pulse app',
+      'Guestpoint (PMS / property workflows)',
+      'Reservations, modifications & no-shows',
+      'Refunds, partial refunds & payment disputes',
+      'Rate plans, restrictions & inventory controls',
+      'POS terminals & card payment settlement',
+      'Cash handling & front-desk reconciliation',
+      'Gmail / Google Workspace for front office',
+      'Guest & office printers',
+      'CCTV monitoring & footage retrieval',
+      'Guest complaints & OTA case messaging',
+      'Housekeeping & maintenance coordination',
+    ],
+  },
+  {
+    name: { en: 'Imaging & ISP', zh: '影像与 ISP' },
+    skills: [
+      'MediaTek (MTK) ISP Tuning',
+      'DebugParser',
+      'Analysis log debugging',
+      'MTK portrait / framing tools',
+      'CCT (Camera Control Tool)',
+      'FSViewer',
+      'Raw simulation (AF / ISP cross-check)',
+      'BeyondCompare',
+      'Gerrit',
+      'Ubuntu (lab)',
+      'Bastion host workflows',
+      'Optical lab & objective tests (MTK standards)',
+      'OTP programming / verification',
+      'Sensor drivers & AF module validation',
+      'AF module lead / multi-mode tuning',
+      'Log × hardware cross-verification',
+      'VIVO portrait algorithm precheck',
+      'Production-line camera support',
+      'Module SE / milestone risk coordination',
+      'OmniVision X1F (1M)',
+      'Sony ISX031 (3M)',
+      'Doxin tuning box (sensor bring-up)',
+      '9296 decoding board',
+      'Camera module + serializer',
+      'Custom bring-up software & per-project configs',
+      'IUT301 Sony debugging toolbox',
+      'Imatest',
+      'MTF / resolution (ISO 12233, SFRplus)',
+      'Noise & SNR',
+      'Dynamic range (Step Charts)',
+      'Color accuracy & ΔE (ColorChecker 24)',
+      'Gamma / grayscale',
+      'Distortion',
+      'Shading / uniformity',
+      'AWB validation',
+      'Saturation testing',
+      'Mobile & automotive cameras',
+      'Lab & field validation',
+    ],
   },
 ]
 
@@ -203,32 +299,32 @@ const timelineRaw: TimelineItem[] = [
       zh: '德赛西威汽车电子 · 全职 · 中国广东惠州 · 现场 · ISP / 相机调试',
     },
     description: {
-      en: `Responsible for end-to-end ISP debugging for assigned OEM customers and factory firmware release for module bring-up.
+      en: `(1) Responsible for end-to-end ISP debugging for assigned OEM customers and factory firmware release for module bring-up.
 
-Platforms & kits: OWI Technology X1F (1M) with custom toolchain, Degree Technology box, 9296 decoding board, camera module, and tuned parameter bundles; Sony ISX031 (3M) with IUT301 Sony debugging toolbox.
+(2) Platforms & kits: OWI Technology X1F (1M) with custom toolchain, Degree Technology box, 9296 decoding board, camera module, and tuned parameter bundles; Sony ISX031 (3M) with IUT301 Sony debugging toolbox.
 
-Focus areas: strong-light suppression; high-temperature aging (dark-noise drift); lens cleaning and defogging validation; AWB for specific scenes such as underground garage entrances; AE configuration including pre-frame counts and maximum exposure; outdoor road tests for CMOS dark noise and subjective image quality.
+(3) Focus areas: strong-light suppression; high-temperature aging (dark-noise drift); lens cleaning and defogging validation; AWB for specific scenes such as underground garage entrances; AE configuration including pre-frame counts and maximum exposure; outdoor road tests for CMOS dark noise and subjective image quality.
 
-Summarized objective lab reports, performed root-cause analysis and targeted tuning, and aligned subjective vs. objective acceptance criteria with customers.
+(4) Summarized objective lab reports, performed root-cause analysis and targeted tuning, and aligned subjective vs. objective acceptance criteria with customers.
 
-Supported e-drive/PMO teams with production-line activation packages and safe release/maintenance of factory firmware.
+(5) Supported e-drive/PMO teams with production-line activation packages and safe release/maintenance of factory firmware.
 
-On-site support at Xiaopeng Motors (Guangzhou) headquarters and plant for break-fix, on-site flashing, and equipment handover.
+(6) On-site support at Xiaopeng Motors (Guangzhou) headquarters and plant for break-fix, on-site flashing, and equipment handover.
 
-Brought up Sony ISX031 sensor modules and completed a business trip to Sony (Shenzhen).`,
-      zh: `负责对应品牌客户的图像信号处理（ISP）全流程调试，以及模组开机相关的出厂固件发布。
+(7) Brought up Sony ISX031 sensor modules and completed a business trip to Sony (Shenzhen).`,
+      zh: `（1）负责对应品牌客户的图像信号处理（ISP）全流程调试，以及模组开机相关的出厂固件发布。
 
-硬件与平台：OWI Technology X1F（1M）— 定制软件 + Degree Technology Box + 9296 解码板 + 相机模组与定制参数包；SONY ISX031（3M）+ IUT301 Sony 调试工具箱。
+（2）硬件与平台：OWI Technology X1F（1M）— 定制软件 + Degree Technology Box + 9296 解码板 + 相机模组与定制参数包；SONY ISX031（3M）+ IUT301 Sony 调试工具箱。
 
-技术要点：强光抑制；高温老化（暗噪声变化）；镜头清洁与去雾等测试；自动白平衡（AWB），如地库入口等场景；自动曝光（AE）预帧数与最长曝光；外场道路测试中的 CMOS 暗噪声与主观画质调试。
+（3）技术要点：强光抑制；高温老化（暗噪声变化）；镜头清洁与去雾等测试；自动白平衡（AWB），如地库入口等场景；自动曝光（AE）预帧数与最长曝光；外场道路测试中的 CMOS 暗噪声与主观画质调试。
 
-输出客观实验报告，分析问题并做针对性调试，在主观与客观标准之间与客户协商折中。
+（4）输出客观实验报告，分析问题并做针对性调试，在主观与客观标准之间与客户协商折中。
 
-协助电驱及项目管理部门输出产线激活配置，并负责产线固件的安全发布与维护。
+（5）协助电驱及项目管理部门输出产线激活配置，并负责产线固件的安全发布与维护。
 
-出差小鹏汽车（广州）总部与工厂，处理现场问题、刷写固件与设备交付。
+（6）出差小鹏汽车（广州）总部与工厂，处理现场问题、刷写固件与设备交付。
 
-调试 SONY ISX031 模组并出差索尼（深圳）。`,
+（7）调试 SONY ISX031 模组并出差索尼（深圳）。`,
     },
     tags: ['ISP', 'Cameras', 'Git', 'Automotive', 'SONY', 'AWB / AE'],
     images: ['/images/portfolio/desay-lobby.png', '/images/portfolio/desay-hq-exterior.png'],
@@ -276,11 +372,22 @@ Subjective and objective AF tuning; supported test teams and customers with issu
     date: '2026-03',
     displayDate: { en: 'Mar 2026', zh: '2026年3月' },
     type: 'project',
-    title: { en: 'OlympicFlow — Smart Transit Platform', zh: 'OlympicFlow — 智慧交通平台' },
+    title: {
+      en: 'OlympicFlow (2032) — Smart Transit Platform',
+      zh: 'OlympicFlow（2032）— 智慧交通平台',
+    },
     subtitle: { en: 'QUT IFN711 Team Project', zh: 'QUT IFN711 团队项目' },
     description: {
-      en: 'Frontend developer and UI/UX lead for a real-time transit monitoring dashboard for Brisbane 2032 scenarios. Stack: React, Leaflet.js, and live data visualization.',
-      zh: '面向布里斯班 2032 场景的交通监控看板：担任前端与 UI/UX 方向，使用 React、Leaflet.js 与实时数据可视化。',
+      en: `Concept-to-prototype team project aligned with Brisbane 2032 mobility narratives: a smart transit operations view that stitches map layers, service alerts, and ridership-style signals into one coherent dashboard.
+
+I led the frontend and UI/UX track—information hierarchy for operators, responsive layouts, and map-centric interactions built with React and Leaflet.js, plus animated charts for corridor load and delay hotspots. We iterated on accessibility contrast, keyboard paths, and “glanceable” status chips so the UI stays usable during incident reviews.
+
+The stack centers on React, Leaflet.js, and client-side visualization patterns suitable for live or simulated feeds; the goal is a credible foundation for future integration with open data APIs and scenario playback for Olympic-scale event days.`,
+      zh: `与布里斯班 2032 城市出行叙事相呼应的课程团队项目：从概念到可演示原型，搭建面向运营侧的智慧交通看板，将线路图层、服务告警与类客流信号整合到同一工作界面。
+
+我负责前端与 UI/UX：梳理信息层级、响应式布局，以及以地图为核心的交互；使用 React、Leaflet.js，并加入走廊负载与延误热点的动态图表。多轮迭代中兼顾对比度与键盘路径，用可扫读的状态标签支撑应急复盘场景。
+
+技术栈以 React、Leaflet.js 与适合实时或模拟数据的前端可视化为主，目标是为后续对接开放数据 API、以及奥运量级活动日的情景回放预留扩展空间。`,
     },
     tags: ['React', 'Leaflet.js', 'UI/UX'],
     link: '#',
@@ -300,8 +407,8 @@ Subjective and objective AF tuning; supported test teams and customers with issu
     images: ['/images/portfolio/project-enn523-udp.jpg'],
   },
   {
-    date: '2025-10',
-    displayDate: { en: 'Oct 2025', zh: '2025年10月' },
+    date: '2024-12',
+    displayDate: { en: 'Dec 2024', zh: '2024年12月' },
     type: 'project',
     title: { en: 'Online Bookstore Web Application', zh: '在线书店 Web 应用' },
     subtitle: { en: 'Flask + SQLite', zh: 'Flask + SQLite' },

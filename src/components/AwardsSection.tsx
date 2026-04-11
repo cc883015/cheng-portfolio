@@ -1,10 +1,11 @@
-import { Award, ExternalLink } from 'lucide-react'
+import { Award, ExternalLink, Trophy } from 'lucide-react'
 import { linkedInHighlights, socialLinks, type LinkedInHighlight } from '../data/portfolio'
 import useReveal from '../hooks/useReveal'
 import { useLanguage } from '../context/LanguageContext'
 import { t } from '../i18n/utils'
 import { awardsUi } from '../i18n/ui'
 import MediaGallery from './MediaGallery'
+import SectionHeadline from './SectionHeadline'
 
 function urlsFor(item: LinkedInHighlight): string[] {
   if (item.images?.length) return item.images
@@ -27,7 +28,7 @@ function AwardCard({ item, index, total }: { item: LinkedInHighlight; index: num
             aria-hidden
           />
         )}
-        <div className="relative z-[1] mt-6 flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl text-amber-400/90">
+        <div className="relative z-[1] mt-6 flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-2xl border border-white/12 bg-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-xl text-amber-400/90">
           <Award className="w-[18px] h-[18px] sm:w-5 sm:h-5" />
         </div>
       </div>
@@ -79,13 +80,12 @@ export default function AwardsSection() {
           <span className="font-mono text-xs text-white/30 tracking-[0.2em]">{t(awardsUi.sectionTitle, lang)}</span>
         </div>
 
-        <h2
-          className="text-3xl sm:text-4xl font-bold text-white mb-12 sm:mb-14"
-          style={{ fontFamily: '"Space Grotesk", system-ui' }}
-        >
-          {t(awardsUi.headline, lang)}
-          <span className="text-cyber">.</span>
-        </h2>
+        <SectionHeadline Icon={Trophy}>
+          <>
+            {t(awardsUi.headline, lang)}
+            <span className="text-cyber">.</span>
+          </>
+        </SectionHeadline>
 
         <div className="relative">
           {items.map((item, i) => (

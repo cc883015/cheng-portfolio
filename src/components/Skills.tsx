@@ -1,8 +1,21 @@
+import type { ElementType } from 'react'
+import { Aperture, Code2, Headset, Hotel, Layers, Server, Shield, Wrench } from 'lucide-react'
 import { skillCategories } from '../data/portfolio'
 import useReveal from '../hooks/useReveal'
 import { useLanguage } from '../context/LanguageContext'
 import { t } from '../i18n/utils'
 import { skillsUi } from '../i18n/ui'
+import SectionHeadline from './SectionHeadline'
+
+const categoryIconByEnName: Record<string, ElementType> = {
+  'IT Support & Service Desk': Headset,
+  Development: Code2,
+  Cybersecurity: Shield,
+  Infrastructure: Server,
+  'Tools & Platforms': Wrench,
+  'Hotel & OTA Operations': Hotel,
+  'Imaging & ISP': Aperture,
+}
 
 export default function Skills() {
   const ref = useReveal()
@@ -17,20 +30,29 @@ export default function Skills() {
           <span className="font-mono text-xs text-white/30 tracking-[0.2em]">{t(skillsUi.sectionTitle, lang)}</span>
         </div>
 
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-16" style={{ fontFamily: '"Space Grotesk", system-ui' }}>
-          {t(skillsUi.headline, lang)}
-          <span className="text-cyber">.</span>
-        </h2>
+        <SectionHeadline Icon={Layers} className="mb-16 sm:mb-16">
+          <>
+            {t(skillsUi.headline, lang)}
+            <span className="text-cyber">.</span>
+          </>
+        </SectionHeadline>
 
         <div className="grid sm:grid-cols-2 gap-6">
-          {skillCategories.map((category, catIndex) => (
+          {skillCategories.map((category, catIndex) => {
+            const CatIcon = categoryIconByEnName[category.name.en] ?? Layers
+            return (
             <div
               key={category.name.en}
               className="glass-card rounded-xl p-6"
               style={{ transitionDelay: `${catIndex * 100}ms` }}
             >
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-2 h-2 rounded-full bg-cyber glow-dot" />
+                <span
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] text-cyber/90"
+                  aria-hidden
+                >
+                  <CatIcon className="h-3.5 w-3.5" strokeWidth={1.85} />
+                </span>
                 <h3 className="font-mono text-xs text-cyber/70 tracking-[0.2em]">{t(category.name, lang).toUpperCase()}</h3>
               </div>
 
@@ -38,14 +60,15 @@ export default function Skills() {
                 {category.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1.5 text-xs rounded-lg bg-white/[0.03] border border-white/[0.06] text-white/50 hover:text-cyber hover:border-cyber/20 hover:bg-cyber/5 transition-all duration-300 cursor-default"
+                    className="px-3 py-1.5 text-xs rounded-lg bg-white/[0.04] border border-white/[0.08] text-white/50 hover:text-cyber hover:border-cyber/25 hover:bg-cyber/8 transition-all duration-300 cursor-default backdrop-blur-sm"
                   >
                     {skill}
                   </span>
                 ))}
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
