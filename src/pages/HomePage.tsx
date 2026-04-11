@@ -4,6 +4,7 @@ import About from '../components/About'
 import AwardsSection from '../components/AwardsSection'
 import JourneySection from '../components/JourneySection'
 import Skills from '../components/Skills'
+import Blog from '../components/Blog'
 import Contact from '../components/Contact'
 import { timelineByCategory } from '../data/portfolio'
 
@@ -26,6 +27,7 @@ export default function HomePage() {
         <JourneySection sectionKey="projects" items={timelineByCategory.project} />
         <JourneySection sectionKey="certs" items={timelineByCategory.cert} />
         <Skills />
+        <Blog />
         <Contact />
       </main>
     </div>

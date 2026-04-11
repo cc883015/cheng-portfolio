@@ -16,6 +16,7 @@ export const navLabels: Record<string, L10n> = {
   projects: { en: 'Projects', zh: '项目' },
   certifications: { en: 'Certificates', zh: '证书' },
   skills: { en: 'Skills', zh: '技能' },
+  blog: { en: 'Blog', zh: '博客' },
   contact: { en: 'Contact', zh: '联系' },
 }
 
@@ -151,9 +152,13 @@ export type JourneySectionKey = keyof typeof journeyUi.sections
 
 export const timelineUi: {
   viewLink: L10n
+  watchDemo: L10n
+  repoLink: L10n
   typeLabels: Record<TimelineItem['type'], L10n>
 } = {
   viewLink: { en: 'View', zh: '查看' },
+  watchDemo: { en: 'Watch demo', zh: '观看演示' },
+  repoLink: { en: 'GitHub', zh: 'GitHub' },
   typeLabels: {
     work: { en: 'Work', zh: '工作' },
     cert: { en: 'Certificate', zh: '证书' },
@@ -173,6 +178,18 @@ export const skillsUi: {
   headline: { en: 'Tech stack', zh: '技术栈' },
 }
 
+export const blogUi: {
+  sectionNum: L10n
+  sectionTitle: L10n
+  headline: L10n
+  readPost: L10n
+} = {
+  sectionNum: { en: '08', zh: '08' },
+  sectionTitle: { en: 'BLOG', zh: '博客' },
+  headline: { en: 'Blog & technical notes', zh: '博客与技术随笔' },
+  readPost: { en: 'Read', zh: '阅读' },
+}
+
 export const contactUi: {
   sectionNum: L10n
   sectionTitle: L10n
@@ -182,7 +199,7 @@ export const contactUi: {
   cta: L10n
   footerTech: L10n
 } = {
-  sectionNum: { en: '08', zh: '08' },
+  sectionNum: { en: '09', zh: '09' },
   sectionTitle: { en: 'CONTACT', zh: '联系' },
   headline1: { en: "Let's build something", zh: '期待与您' },
   headline2: { en: 'together.', zh: '共同打造。' },

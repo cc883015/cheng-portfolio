@@ -12,6 +12,7 @@ const navKeys = [
   { key: 'projects', hash: 'projects' },
   { key: 'certifications', hash: 'certifications' },
   { key: 'skills', hash: 'skills' },
+  { key: 'blog', hash: 'blog' },
   { key: 'contact', hash: 'contact' },
 ] as const
 

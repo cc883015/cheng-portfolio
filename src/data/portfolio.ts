@@ -4,10 +4,16 @@
 // • 头像：profile.avatar → public/images/profile.jpg（或 portfolio 目录下资源）
 // • 关于区附图：profile.aboutImages（字符串数组，可多张横滑）
 // • 履历 / 荣誉：每条可用 image（单张）或 images（多张，优先）
+// • 博客外链：在 blogPosts 数组中追加条目（title/excerpt/url 等，支持中英）
 // • 图片放 public/images/portfolio/，路径以 /images/portfolio/ 开头
+// • 亦可使用 https://raw.githubusercontent.com/... 或 README 中 GitHub user-attachments 外链（便于与仓库大图一致）
 // ============================================================
 
 import type { L10n } from '../i18n/utils'
+
+/** 本仓库 main 分支上的静态资源（用于站内条目展示高清原图） */
+const GH_PORTFOLIO =
+  'https://raw.githubusercontent.com/cc883015/cheng-portfolio/main/public' as const
 
 export interface SocialLink {
   platform: string
@@ -24,6 +30,10 @@ export interface TimelineItem {
   description: L10n
   tags?: string[]
   link?: string
+  /** 源码仓库等次要外链（主 link 可为演示视频时配合使用） */
+  repoLink?: string
+  /** 演示视频等额外外链（可与 GitHub 主 link 并存，如个人站卡片挂课程 demo） */
+  videoLink?: string
   /** 单图（与 images 二选一或并存；若仅有 image 会自动当作一张图展示） */
   image?: string
   /** 多图相册（领英式横滑）；有则优先使用 */
@@ -47,6 +57,19 @@ export interface LinkedInHighlight {
   link?: string
 }
 
+/** 外链博文或笔记录；按 date 降序展示 */
+export interface BlogPost {
+  id: string
+  date: string
+  displayDate: L10n
+  title: L10n
+  excerpt: L10n
+  url: string
+  /** 展示在卡片角标，如 CSDN、GitHub、Medium */
+  source?: L10n
+  tags?: string[]
+}
+
 export const profile = {
   name: 'Charles Chen',
   nickname: '',
@@ -62,7 +85,7 @@ export const profile = {
   avatar: '/images/profile.jpg',
   resumeUrl: '/resume.pdf',
   /** 关于区正文下方的附图（可选，多张横滑） */
-  aboutImages: ['/images/portfolio/work-china-experience-overview.png'],
+  aboutImages: [`${GH_PORTFOLIO}/images/portfolio/work-china-experience-overview.png`],
   bio: {
     en: `I'm Charles Chen, currently based in Brisbane, Australia. I'm committed to strengthening my computing foundations and I'm especially interested in AI-assisted coding and security. At QUT I'm pursuing a Master of Information Technology (Cybersecurity), combining research-oriented development with deeper security study. My bachelor's training in software engineering and economics helps me reason about systems, cost, and risk together.
 
@@ -96,6 +119,39 @@ export const socialLinks: SocialLink[] = [
     icon: 'BookOpen',
   },
 ]
+
+export const blogPosts: BlogPost[] = [
+  {
+    id: 'csdn-main',
+    date: '2026-04',
+    displayDate: { en: 'Ongoing', zh: '持续更新' },
+    title: { en: 'CSDN — technical articles & study notes', zh: 'CSDN 技术专栏与学习笔记' },
+    excerpt: {
+      en: 'Long-form posts on networking, security, cryptography, camera ISP debugging and testing, cloud, and DevOps—written to be searchable and reusable as personal reference.',
+      zh: '网络、安全、密码学、相机 ISP 调试与测试、云与 DevOps 等方向的长文与笔记，便于检索与日后复盘。',
+    },
+    url: 'https://blog.csdn.net/weixin_44174312',
+    source: { en: 'CSDN', zh: 'CSDN' },
+    tags: ['Networking', 'Security', 'ISP', 'Cloud'],
+  },
+  {
+    id: 'github-activity',
+    date: '2026-04',
+    displayDate: { en: 'Ongoing', zh: '持续更新' },
+    title: { en: 'GitHub — projects, code & README documentation', zh: 'GitHub — 项目代码与 README 文档' },
+    excerpt: {
+      en: 'Repositories spanning full-stack coursework, IoT, ML experiments, and CI/CD—READMEs and commit history double as engineering notes for setup, trade-offs, and reproduction.',
+      zh: '涵盖全栈课程项目、物联网、机器学习实验与 CI/CD 等仓库；README 与提交记录承载环境说明、取舍与可复现性说明。',
+    },
+    url: 'https://github.com/cc883015',
+    source: { en: 'GitHub', zh: 'GitHub' },
+    tags: ['Open Source', 'Docs'],
+  },
+].sort((a, b) => {
+  const d = b.date.localeCompare(a.date)
+  if (d !== 0) return d
+  return a.id.localeCompare(b.id)
+})
 
 export const skillCategories: SkillCategory[] = [
   {
@@ -284,7 +340,6 @@ const timelineRaw: TimelineItem[] = [
       zh: 'IT 技术支持与酒店运营管理并行：宾客服务、物业相关系统、终端用户技术支持与日常协调，并保持持续的技术实践习惯。',
     },
     tags: ['IT Support', 'Hospitality', 'Operations'],
-    images: ['/images/portfolio/work-itiga.jpg'],
   },
   {
     date: '2023-10',
@@ -327,7 +382,11 @@ const timelineRaw: TimelineItem[] = [
 （7）调试 SONY ISX031 模组并出差索尼（深圳）。`,
     },
     tags: ['ISP', 'Cameras', 'Git', 'Automotive', 'SONY', 'AWB / AE'],
-    images: ['/images/portfolio/desay-lobby.png', '/images/portfolio/desay-hq-exterior.png'],
+    images: [
+      `${GH_PORTFOLIO}/images/portfolio/desay-lobby.png`,
+      `${GH_PORTFOLIO}/images/portfolio/desay-hq-exterior.png`,
+      `${GH_PORTFOLIO}/images/portfolio/work-desay-linked.png`,
+    ],
   },
   {
     date: '2022-08',
@@ -366,7 +425,11 @@ Subjective and objective AF tuning; supported test teams and customers with issu
 （4）通过参数调试配合性能与功耗团队，缩短性能与对焦相关线程耗时；与 AE、ISP 等模块协同联调。`,
     },
     tags: ['ISP', 'MTK', 'AF', 'Cameras', 'Agile'],
-    images: ['/images/portfolio/huaqin-campus-night.png', '/images/portfolio/huaqin-team-event.png'],
+    images: [
+      `${GH_PORTFOLIO}/images/portfolio/huaqin-campus-night.png`,
+      `${GH_PORTFOLIO}/images/portfolio/huaqin-team-event.png`,
+      `${GH_PORTFOLIO}/images/portfolio/work-huaqin-linked.png`,
+    ],
   },
   {
     date: '2026-04',
@@ -381,44 +444,72 @@ Subjective and objective AF tuning; supported test teams and customers with issu
       zh: 'React · TypeScript · Vite · Tailwind · Cloudflare Workers',
     },
     description: {
-      en: `A production-minded single-page application that presents my professional narrative end-to-end: biography, education, awards, employment history, project case studies, a structured skills taxonomy, and contact pathways—implemented as a modular React 19 + TypeScript codebase with Vite for fast iteration and a typed build pipeline.
+      en: `Per GitHub README: Vite + React 19 + TypeScript SPA with Tailwind; all content is driven from src/data/portfolio.ts (profile, social links, skills, timeline). Sections cover Hero, About, Journey (education / awards / work / projects / certs), Skills, Blog, and Contact.
 
-The interface follows a cohesive dark-theme design system: responsive layouts from mobile to desktop, glass-style surfaces, deliberate typography (Space Grotesk / DM Sans / mono accents), scroll-reveal motion with reduced-motion fallbacks, and an accessible image lightbox. Context-driven English/Chinese switching keeps copy maintainable without duplicating routes.
+Stack: React, TypeScript, Vite, Tailwind, Lucide, Context (language + lightbox), IntersectionObserver reveal, responsive dark “cyber” UI (Space Grotesk, DM Sans, JetBrains Mono).
 
-Deployed on Cloudflare Workers for edge-cached static delivery—demonstrating not only component architecture, custom hooks, and separation of data vs. presentation, but also the ability to ship a minified, cache-friendly bundle suitable for real-world hosting and performance constraints.`,
-      zh: `面向真实交付的单页应用，用于系统化呈现个人职业叙事：关于、教育、荣誉、工作履历、项目案例、结构化技能矩阵与联系方式；以 React 19 + TypeScript 模块化实现，配合 Vite 构建与类型检查，形成可维护、可迭代的前端工程基线。
+What it solves: One bilingual, CMS-free source of truth; static build suitable for edge deploy (e.g. Cloudflare Workers).
 
-界面采用统一的深色主题设计系统：自移动端至桌面的响应式布局、玻璃拟态层次、克制的字体与等宽点缀、滚动显现动效并兼顾「减少动态」系统偏好，以及可访问的图片灯箱体验。通过 Context 驱动中英切换，在单一路由下集中维护文案与数据结构。
+Skills: Front-end architecture, design tokens, a11y (reduced-motion, lightbox), i18n on a single route, production bundling.
 
-站点通过 Cloudflare Workers 在全球边缘交付静态资源，体现除组件拆分、自定义 Hook、数据与视图分离之外，将产物压缩与缓存策略纳入考量、面向真实托管与性能约束的端到端交付能力。`,
+Related demo: QUT IFN711 Brisbane 2032 hub walkthrough is linked separately (YouTube).`,
+      zh: `与 GitHub README 一致：Vite + React 19 + TypeScript + Tailwind；文案与履历数据集中在 src/data/portfolio.ts。页面包含 Hero、关于、履历（教育/荣誉/工作/项目/证书）、技能、博客、联系等模块。
+
+技术栈：React、TypeScript、Vite、Tailwind、Lucide、Context（语言与灯箱）、滚动显现、响应式深色科技感界面与多字体层级。
+
+解决的问题：中英双语个人站单一数据源、无 CMS、静态构建并可部署到边缘（如 Cloudflare Workers）。
+
+能力体现：前端架构、设计系统、无障碍与动效降级、单路由国际化与生产级打包。
+
+相关演示：QUT IFN711 布里斯班 2032 门户演示视频见下方「观看演示」链接。`,
     },
     tags: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Cloudflare Workers'],
     link: 'https://github.com/cc883015/cheng-portfolio',
+    videoLink: 'https://youtu.be/_IXVktmmQ9w',
+    images: [
+      '/images/portfolio/project-personal-portfolio-showcase.png',
+      `${GH_PORTFOLIO}/favicon.svg`,
+    ],
   },
   {
     date: '2026-03',
     displayDate: { en: 'Mar 2026', zh: '2026年3月' },
     type: 'project',
     title: {
-      en: 'OlympicFlow (2032) — Smart Transit Platform',
-      zh: 'OlympicFlow（2032）— 智慧交通平台',
+      en: 'OLYMPIC2032 — Brisbane 2032 Games Hub',
+      zh: 'OLYMPIC2032 — 布里斯班 2032 奥运资讯门户',
     },
-    subtitle: { en: 'QUT IFN711 Team Project', zh: 'QUT IFN711 团队项目' },
+    subtitle: {
+      en: 'QUT IFN711 · Next.js · Go · Docker · Brisbane 2032 hub',
+      zh: 'QUT IFN711 · Next.js · Go · Docker · 布里斯班 2032 资讯门户',
+    },
     description: {
-      en: `Concept-to-prototype team project aligned with Brisbane 2032 mobility narratives: a smart transit operations view that stitches map layers, service alerts, and ridership-style signals into one coherent dashboard.
+      en: `Team project OLYMPIC2032: an official-style information hub for the Brisbane 2032 Olympic & Paralympic Games—home, events, venues, athletes, medals, news, tickets, and Paralympics routes.
 
-I led the frontend and UI/UX track—information hierarchy for operators, responsive layouts, and map-centric interactions built with React and Leaflet.js, plus animated charts for corridor load and delay hotspots. We iterated on accessibility contrast, keyboard paths, and “glanceable” status chips so the UI stays usable during incident reviews.
+Stack (from the delivered codebase): Next.js (App Router, visitor-app, Turbopack dev server), TypeScript frontend, Go backend (go.mod), Docker for containerized services, structured navigation and hero CTAs (e.g. View Events, Paralympics Hub).
 
-The stack centers on React, Leaflet.js, and client-side visualization patterns suitable for live or simulated feeds; the goal is a credible foundation for future integration with open data APIs and scenario playback for Olympic-scale event days.`,
-      zh: `与布里斯班 2032 城市出行叙事相呼应的课程团队项目：从概念到可演示原型，搭建面向运营侧的智慧交通看板，将线路图层、服务告警与类客流信号整合到同一工作界面。
+What it does: Cohesive public-facing discovery and messaging; separated frontend/backend layout for ownership and deployment.
 
-我负责前端与 UI/UX：梳理信息层级、响应式布局，以及以地图为核心的交互；使用 React、Leaflet.js，并加入走廊负载与延误热点的动态图表。多轮迭代中兼顾对比度与键盘路径，用可扫读的状态标签支撑应急复盘场景。
+Problems solved: Delivers a runnable full-stack slice instead of static mockups; aligns UI copy and information architecture with a large event narrative under course time limits.
 
-技术栈以 React、Leaflet.js 与适合实时或模拟数据的前端可视化为主，目标是为后续对接开放数据 API、以及奥运量级活动日的情景回放预留扩展空间。`,
+Skills demonstrated: Full-stack coordination, modern React/Next patterns, Go service structure, container-aware workflow, demo storytelling.
+
+Screenshot: IDE with running Brisbane 2032 hub in browser (composite).`,
+      zh: `团队项目 OLYMPIC2032：面向布里斯班 2032 奥运会与残奥会的资讯门户原型，涵盖 Home、赛事、场馆、运动员、奖牌、新闻、票务与 Paralympics 等路由与导航。
+
+技术栈（与实现一致）：Next.js（App Router、visitor-app、Turbopack）、TypeScript 前端；Go 后端（go.mod）；Docker；首屏英雄区与主要 CTA。
+
+实现功能：统一的公共信息架构与品牌化页面，前后端目录分离，便于分工与部署。
+
+解决的问题：在课程周期内交付可运行的全栈切片，并将叙事与真实大型活动场景对齐。
+
+能力体现：全栈协作、现代 React/Next 实践、Go 服务结构、容器化意识与演示表达。
+
+配图：本地开发环境 + 浏览器中运行的布里斯班 2032 门户（组合截图）。`,
     },
-    tags: ['React', 'Leaflet.js', 'UI/UX'],
+    tags: ['Next.js', 'Go', 'TypeScript', 'Docker'],
     link: '#',
-    images: ['/images/portfolio/project-olympicflow.jpg'],
+    images: ['/images/portfolio/project-olympicflow-hub.png'],
   },
   {
     date: '2026-03',
@@ -427,8 +518,20 @@ The stack centers on React, Leaflet.js, and client-side visualization patterns s
     title: { en: 'UDP Client-Server System', zh: 'UDP 客户端-服务器系统' },
     subtitle: { en: 'ENN523 Network Engineering', zh: 'ENN523 网络工程' },
     description: {
-      en: 'C implementation of UDP client-server communication with reliability patterns, error handling, and acknowledgment-style control.',
-      zh: '使用 C 语言实现 UDP 通信，包含可靠性设计、错误处理与确认机制。',
+      en: `ENN523 network engineering coursework: UDP client/server in C with application-level reliability (timeouts, retransmission-style acknowledgements), structured error handling, and clear separation of send/receive paths.
+
+Stack: C, POSIX sockets, UDP.
+
+Problem: UDP is unreliable by design—this lab implements patterns that mimic reliability for learning.
+
+Skills: Low-level networking, protocol reasoning, defensive coding under packet loss.`,
+      zh: `QUT ENN523 网络工程作业：以 C 语言实现 UDP 客户端/服务端，在应用层补充超时、确认与重传等可靠性思路，并规范错误处理与收发逻辑分离。
+
+技术栈：C、POSIX Socket、UDP。
+
+解决的问题：UDP 本身不可靠，通过实验理解如何在用户态构造可控的可靠语义。
+
+能力体现：底层网络编程、协议层推理与在丢包场景下的健壮性意识。`,
     },
     tags: ['C', 'UDP', 'Socket Programming'],
     images: ['/images/portfolio/project-enn523-udp.jpg'],
@@ -440,12 +543,27 @@ The stack centers on React, Leaflet.js, and client-side visualization patterns s
     title: { en: 'Online Bookstore Web Application', zh: '在线书店 Web 应用' },
     subtitle: { en: 'Flask + SQLite', zh: 'Flask + SQLite' },
     description: {
-      en: 'Full-stack web app with Flask backend and SQLite: catalog, cart-style flows, and server-rendered pages with structured Python modules.',
-      zh: '基于 Flask 与 SQLite 的全栈 Web 应用，包含书目、购物车流程与模块化后端结构。',
+      en: `Flask + SQLite full-stack web app (GitHub: Online-Bookstore-Web-Application): product catalog, cart-style flows, and server-rendered pages with modular Python packages.
+
+Stack: Python, Flask, SQLite, Jinja-style templating patterns.
+
+Problem: Practice end-to-end HTTP handling, persistence, and session/cart logic without a heavy framework.
+
+Skills: Backend routing, SQL data modelling, template-driven UI integration.`,
+      zh: `Flask + SQLite 全栈网店练习项目（GitHub 仓库名 Online-Bookstore-Web-Application）：书目目录、类购物车流程、服务端渲染页面与模块化 Python 结构。
+
+技术栈：Python、Flask、SQLite。
+
+解决的问题：在不引入过重框架的前提下练习 HTTP、持久化与购物车/会话逻辑。
+
+能力体现：路由设计、关系型建模与模板化页面整合。`,
     },
     tags: ['Flask', 'Python', 'SQLite'],
     link: 'https://github.com/cc883015/Online-Bookstore-Web-Application',
-    images: ['/images/portfolio/project-bookstore.jpg'],
+    images: [
+      '/images/portfolio/project-online-bookstore-catalog.png',
+      '/images/portfolio/project-bookstore.jpg',
+    ],
   },
   {
     date: '2025-10',
@@ -455,42 +573,117 @@ The stack centers on React, Leaflet.js, and client-side visualization patterns s
       en: 'Multiclass vs Binary Classification (ML)',
       zh: '多分类与二分类模型对比（机器学习）',
     },
-    subtitle: { en: 'Course / research project', zh: '课程与研究向项目' },
+    subtitle: { en: 'UNSW-NB15 · LR & RF · metrics & plots', zh: 'UNSW-NB15 · LR 与 RF · 指标与图表' },
     description: {
-      en: 'Compares performance of binary vs multiclass classification models on the same dataset with documented experiments and evaluation metrics.',
-      zh: '在同一数据集上对比二分类与多分类模型表现，包含实验记录与评估指标分析。',
+      en: `GitHub README project: compares binary vs multiclass classification on the same features and compute budget, plus confusion-reduction strategies (class weighting, SMOTE, threshold tuning).
+
+Stack: Python, scikit-learn (Logistic Regression, Random Forest), pandas pipeline in utils_data.py, metrics in metrics_utils.py, experiments in q1_train_test.py / q2_train_test.py, plots from plot_results.py.
+
+Q1 (plots in repo): q1_accuracy.png, q1_latency.png, q1_macro_f1.png — compare Accuracy, latency per sample, Macro-F1, and model size between binary and multiclass LR/RF. README finding: binary models tend to achieve higher Accuracy and F1; multiclass shows more false positives and instability.
+
+Q2 (plots): q2_macro_f1.png, q2_macro_fpr.png — evaluate class weighting, SMOTE, and threshold adjustment. README finding: SMOTE and threshold tuning improve separation; class weighting helps balance but can increase errors on some classes.
+
+Artifacts: CSV confusion matrices (cm_binary_*, cm_multiclass_*, confusion_class_weights_*, confusion_smote_*).
+
+Skills: Experimental design, metric literacy (Accuracy, Macro-F1, Macro-FPR, latency), reproducible plots, imbalanced-data techniques.`,
+      zh: `与 GitHub README 一致：在相同数据与算力下对比二分类与多分类，并实验类别权重、SMOTE、阈值调整等对混淆的影响。
+
+技术栈：Python、scikit-learn（逻辑回归、随机森林）、utils_data / metrics_utils / q1_train_test / q2_train_test / plot_results 等脚本。
+
+Q1（仓库内图）：q1_accuracy.png、q1_latency.png、q1_macro_f1.png — 对比准确率、单样本延迟、Macro-F1 与模型体量；README 结论：二分类通常在 Accuracy 与 F1 上更占优，多分类假阳性更多、稳定性更差。
+
+Q2（图）：q2_macro_f1.png、q2_macro_fpr.png — 评估加权、SMOTE、阈值策略；README 结论：SMOTE 与阈值调整有助于类间分离；类别权重改善均衡但可能牺牲部分类别精度。
+
+产出：多份混淆矩阵 CSV 便于复核。
+
+能力体现：实验设计、指标解读（Accuracy / Macro-F1 / Macro-FPR / 延迟）、可复现作图与不均衡数据手段。`,
     },
     tags: ['Python', 'Machine Learning', 'Scikit-learn'],
     link: 'https://github.com/cc883015/Multiclass-vs-Binary-Comparison-in-Machine-Learning',
-    images: ['/images/portfolio/project-ml-compare.jpg'],
+    images: [
+      '/images/portfolio/project-ml-experiments-workspace.png',
+      'https://raw.githubusercontent.com/cc883015/Multiclass-vs-Binary-Comparison-in-Machine-Learning/main/q1_accuracy.png',
+      'https://raw.githubusercontent.com/cc883015/Multiclass-vs-Binary-Comparison-in-Machine-Learning/main/q1_latency.png',
+      'https://raw.githubusercontent.com/cc883015/Multiclass-vs-Binary-Comparison-in-Machine-Learning/main/q1_macro_f1.png',
+      'https://raw.githubusercontent.com/cc883015/Multiclass-vs-Binary-Comparison-in-Machine-Learning/main/q2_macro_f1.png',
+      'https://raw.githubusercontent.com/cc883015/Multiclass-vs-Binary-Comparison-in-Machine-Learning/main/q2_macro_fpr.png',
+    ],
   },
   {
     date: '2025-10',
     displayDate: { en: 'Oct 2025', zh: '2025年10月' },
     type: 'project',
     title: { en: 'Smart Indoor Mold Risk Monitor (IoT)', zh: '室内霉菌风险监测（物联网）' },
-    subtitle: { en: 'BLE · MQTT · Cloud', zh: 'BLE · MQTT · 云端' },
+    subtitle: { en: 'Arduino · Raspberry Pi · AWS EC2 · Mosquitto', zh: 'Arduino · 树莓派 · AWS EC2 · Mosquitto' },
     description: {
-      en: 'Three-tier IoT system for mold-risk sensing and alerts using BLE edge devices, MQTT messaging, and cloud-side processing.',
-      zh: '三层物联网架构：边缘传感、MQTT 消息与云端处理，用于室内霉菌风险监测与告警。',
+      en: `README: 3-tier indoor environment monitor—temperature & humidity—with real-time alerts and remote control over BLE + MQTT.
+
+Tier 1 (sensing): Arduino Nano 33 IoT, DHT11, RGB LED, buzzer; BLE GATT notify for sensor stream, write characteristic for commands; comfort / risk thresholds documented in slides.
+
+Tier 2 (gateway): Raspberry Pi, Python 3, bleak (BLE central), paho-mqtt, asyncio—bridges Nano notifications to MQTT and forwards cloud commands back to BLE.
+
+Tier 3 (cloud): Mosquitto on AWS EC2 (e.g. port 1883 for lab), topics such as sensor upstream and command downstream; mobile clients (e.g. MyMQTT) subscribe for live JSON payloads like {"temperature":25.7,"humidity":52,"status":"NORMAL"}.
+
+Problem: Demonstrate end-to-end IoT from constrained device to cloud with observable telemetry.
+
+Skills: Embedded + Linux gateway scripting, protocol bridging, AWS networking basics, JSON payloads, ops logging.`,
+      zh: `与 GitHub README 一致：三层室内环境监测（温湿度），BLE + MQTT 实现实时告警与远程控制。
+
+Tier 1（感知）：Arduino Nano 33 IoT、DHT11、RGB、蜂鸣器；BLE 通知上报、命令特征写入；舒适区/风险阈值见演示材料。
+
+Tier 2（网关）：树莓派、Python 3、bleak、paho-mqtt、asyncio，将 BLE 数据桥接到 MQTT 并回写下发命令。
+
+Tier 3（云端）：AWS EC2 上 Mosquitto（实验环境开放 1883 等），上下行主题分离；手机端可订阅 JSON 遥测（如 temperature、humidity、status）。
+
+解决的问题：从受限设备到云端的完整物联网链路可观测、可演示。
+
+能力体现：嵌入式与网关脚本、协议桥接、AWS 网络基础、JSON 载荷与运行日志分析。`,
     },
     tags: ['IoT', 'BLE', 'MQTT'],
     link: 'https://github.com/cc883015/Smart_Indoor_Mold_Risk_Monitor-BLE-MQTT-Cloud-',
-    images: ['/images/portfolio/project-iot-mold.jpg'],
+    images: [
+      'https://github.com/user-attachments/assets/ae7785f4-3fdb-4f0a-96a2-f8c9451ca45b',
+      'https://github.com/user-attachments/assets/7fa84293-feaa-4e6f-832c-33003c187a52',
+      'https://github.com/user-attachments/assets/bb3b782d-93b8-4c34-b807-39622fdad508',
+      'https://github.com/user-attachments/assets/80e105ce-b638-4c64-ad07-3c7eb5b144a6',
+      '/images/portfolio/project-iot-ble-mqtt-terminal.png',
+      '/images/portfolio/project-iot-tier3-cloud-mqtt.png',
+      '/images/portfolio/project-iot-tier2-pi-gateway.png',
+    ],
   },
   {
     date: '2025-08',
     displayDate: { en: 'Aug 2025', zh: '2025年8月' },
     type: 'project',
     title: { en: 'Hotel Employee Work Schedule System', zh: '酒店员工排班系统' },
-    subtitle: { en: 'Internal operations tooling', zh: '内部运营工具' },
+    subtitle: { en: 'Python · tkinter · tkcalendar · SQLite · CSV', zh: 'Python · tkinter · tkcalendar · SQLite · CSV' },
     description: {
-      en: 'Built to streamline employee scheduling and wage tracking while working as motel manager—practical software tied to real operational needs.',
-      zh: '在担任旅馆经理期间开发，用于排班与工时薪资追踪，贴近真实运营场景。',
+      en: `GitHub README: desktop scheduling & payroll helper for hotels/SMBs—built while working as motel manager.
+
+Stack: Python 3.9+, tkinter + tkcalendar GUI, SQLite3 persistence, csv exports for daily reports and payroll summaries.
+
+Features: calendar-based shifts, roles (cleaner/receptionist), full vs half-day rates, auto daily/weekly wage totals, filters and name sorting, CSV export for management archives.
+
+Problems solved: Replace messy manual rosters and error-prone wage math with a guided UI and reproducible exports.
+
+Skills: Domain-driven tooling, CRUD-style state over SQLite, UX for non-technical operators.`,
+      zh: `与 GitHub README 一致：面向酒店或中小企业的桌面排班与工资统计工具（兼职经理场景真实需求）。
+
+技术栈：Python 3.9+、tkinter + tkcalendar、SQLite3、标准库 csv 导出。
+
+功能：按日历排班、角色（清洁/前台）、全班/半班计价、自动汇总日薪与周薪、筛选排序、导出 CSV 便于留档。
+
+解决的问题：替代手工排班表与易错的工资计算，用可视化界面与可导出报表降低管理成本。
+
+能力体现：业务驱动开发、SQLite 状态管理、面向非技术同事的交互设计。`,
     },
-    tags: ['Web App', 'Operations', 'JavaScript'],
+    tags: ['Python', 'SQLite', 'tkinter'],
     link: 'https://github.com/cc883015/Hotel_Employee_Work_Sechedule_System',
-    images: ['/images/portfolio/project-hotel-schedule.jpg'],
+    images: [
+      'https://github.com/user-attachments/assets/e3ed693c-1fa5-4968-ac11-c2e97329c16e',
+      'https://github.com/user-attachments/assets/a465cfb9-6f36-4540-afbb-b53c9b422a94',
+      'https://github.com/user-attachments/assets/1f7966c0-b533-4bb8-8dea-ac1c3b295004',
+    ],
   },
   {
     date: '2025-05',
@@ -499,26 +692,65 @@ The stack centers on React, Leaflet.js, and client-side visualization patterns s
     title: { en: 'Book Review & User Manager', zh: '书评与用户管理系统' },
     subtitle: { en: 'Node.js · Express · MongoDB · React (Vite)', zh: 'Node.js · Express · MongoDB · React (Vite)' },
     description: {
-      en: 'Full-stack app with JWT auth, roles (user/admin), book catalog, star ratings, moderation, and server-side pagination—MongoDB + REST API + React client.',
-      zh: '全栈应用：JWT 鉴权、用户/管理员角色、书目与星级评价、审核与后端分页，MongoDB + REST + React 客户端。',
+      en: `README: Book Review & User Manager—readers discover books, post star ratings and comments; admins moderate content and users.
+
+Stack: Node.js + Express REST API, MongoDB + Mongoose, JWT + bcrypt auth, rate limiting; React (Vite) client with Mantine components; deploy note: Caddy reverse proxy.
+
+Capabilities: Register/login, JWT-protected routes, book CRUD (admin), review CRUD with ownership rules, admin user management, pagination with link headers, average rating rollups, standardized errors.
+
+Problem: Showcase secure multi-role CRUD, pagination, and abuse controls in a realistic reading community scenario.
+
+Skills: AuthZ/authN design, REST contracts, Mongo modelling, React SPA integration, operational hardening (rate limits).`,
+      zh: `与仓库 README 一致：书评与用户管理——读者浏览书目、发表星级与文字评价；管理员审核内容与账号。
+
+技术栈：Node.js + Express、MongoDB + Mongoose、JWT + bcrypt、限流中间件；React（Vite）+ Mantine；文档提及 Caddy 反代部署。
+
+功能：注册登录、JWT 保护路由、书目全生命周期（管理员）、评价增删改（用户仅能管理本人内容，管理员可全局管理）、用户管理、服务端分页与平均分回写、统一错误响应。
+
+解决的问题：在多角色场景下演示安全 CRUD、分页与简单防滥用。
+
+能力体现：鉴权/授权设计、REST 契约、Mongo 建模、React 联调与基础运维加固。`,
     },
     tags: ['Node.js', 'React', 'MongoDB', 'JWT'],
     link: 'https://github.com/cc883015/Book_Review_User_Manager',
-    images: ['/images/portfolio/project-book-review.jpg'],
+    images: [
+      '/images/portfolio/project-book-review-01-home.png',
+      '/images/portfolio/project-book-review-02-atlas.png',
+      '/images/portfolio/project-book-review-03-admin.png',
+    ],
   },
   {
     date: '2025-04',
     displayDate: { en: 'Apr 2025', zh: '2025年4月' },
     type: 'project',
     title: { en: 'Product Review & Rating System', zh: '产品评价与评分系统' },
-    subtitle: { en: 'Node.js + React + CI/CD + MongoDB', zh: 'Node.js + React + CI/CD + MongoDB' },
+    subtitle: { en: 'Node.js · Express · MongoDB · React · Tailwind · React Router', zh: 'Node.js · Express · MongoDB · React · Tailwind · React Router' },
     description: {
-      en: 'Assessment project: product reviews and ratings with a modern JS stack, automated pipeline hooks, and persistent document storage.',
-      zh: '课程/作业项目：产品评价与打分，采用现代 JS 技术栈、CI/CD 与 MongoDB 持久化。',
+      en: `README: Product Review & Rating System—CRUD for products, reviews, and ratings.
+
+Stack: Node.js 23 / Express 4 backend, MongoDB 6, React 18 + Tailwind + React Router 6; requirement diagram tracked in-repo; Jira board linked for delivery tracking.
+
+Run path: npm start orchestrates app; separate backend/frontend dev servers for local work.
+
+Problem: Deliver a modern JS full-stack assessment with traceable requirements (diagram) and persistent document storage.
+
+Skills: Layered backend, React UI with router, Tailwind styling, collaboration artefacts (diagram + board).`,
+      zh: `与 README 一致：产品评价与评分系统——产品、评价、打分的 CRUD。
+
+技术栈：Node.js / Express 后端、MongoDB、React 18 + Tailwind + React Router 6；仓库含需求示意图；文档链接 Jira 看板用于进度管理。
+
+运行方式：npm start 一键编排；本地可分别启动 backend 与 frontend。
+
+解决的问题：在课程作业约束下交付可追踪需求（图示）+ 持久化的现代 JS 全栈应用。
+
+能力体现：分层后端、路由化前端、Tailwind 界面与协作产物（图 + 看板）。`,
     },
     tags: ['React', 'Node.js', 'MongoDB', 'CI/CD'],
     link: 'https://github.com/cc883015/Product_Review_Rating_System',
-    images: ['/images/portfolio/project-product-review.jpg'],
+    images: [
+      'https://raw.githubusercontent.com/cc883015/Product_Review_Rating_System/main/requirement_diagram.png',
+      'https://raw.githubusercontent.com/cc883015/Product_Review_Rating_System/main/frontend/src/logo.svg',
+    ],
   },
   {
     date: '2025-03',
@@ -527,12 +759,27 @@ The stack centers on React, Leaflet.js, and client-side visualization patterns s
     title: { en: 'Task Manager — AWS Setup (fork)', zh: '任务管理 — AWS 部署（Fork）' },
     subtitle: { en: 'Based on rajuiit/taskmanager_aws_setup', zh: '源自 rajuiit/taskmanager_aws_setup' },
     description: {
-      en: 'Fork exploring AWS-oriented deployment patterns for a JavaScript task manager stack; useful reference for cloud hosting experiments.',
-      zh: 'Fork 的 AWS 部署向任务管理项目，用于练习云主机与部署流程。',
+      en: `Fork of rajuiit/taskmanager_aws_setup: MERN-style task manager focused on AWS hosting practice per upstream README.
+
+Features called out: signup/login/logout, profile updates, task CRUD, validation (fields + email), MongoDB persistence, Git-based coursework workflow.
+
+Stack: JavaScript/Node ecosystem, MongoDB Atlas account flow documented, AWS-oriented deployment steps.
+
+Problem: Build cloud literacy—provision data store, wire a hosted JS API, and ship a CRUD UI students extend via GitHub.
+
+Skills: DevOps-minded iteration, managed database usage, full-stack debugging across local vs cloud environments.`,
+      zh: `Fork rajuiit/taskmanager_aws_setup：面向 AWS 部署练习的任务管理应用（README 所述 MERN 路线）。
+
+功能：注册/登录/登出、资料更新、任务增删改查、输入校验与邮箱校验、MongoDB 持久化、基于 GitHub 的作业迭代流程。
+
+技术栈：JavaScript/Node 生态、文档引导 MongoDB Atlas 账号与 AWS 相关步骤。
+
+解决的问题：在课程中建立「云主机 + 托管数据库 + CRUD 应用」的端到端认识。
+
+能力体现：偏运维向的迭代、托管数据库使用、以及本地与云端联调。`,
     },
     tags: ['AWS', 'JavaScript', 'DevOps'],
     link: 'https://github.com/cc883015/TaskManager_Aws_setup',
-    images: ['/images/portfolio/project-aws-taskmanager.jpg'],
   },
   {
     date: '2026-05',

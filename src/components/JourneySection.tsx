@@ -37,6 +37,10 @@ function galleryUrls(item: TimelineItem): string[] {
   return []
 }
 
+function isYoutubeUrl(url: string) {
+  return /youtu\.be|youtube\.com/i.test(url)
+}
+
 function typeLabel(item: TimelineItem, lang: Lang): string {
   return t(timelineUi.typeLabels[item.type], lang)
 }
@@ -55,6 +59,8 @@ function JourneyCard({
   const Icon = typeIcons[item.type]
   const colorClass = typeColors[item.type]
   const showLink = Boolean(item.link && item.link !== '#')
+  const showRepo = Boolean(item.repoLink)
+  const showVideoLink = Boolean(item.videoLink)
   const urls = galleryUrls(item)
   const isLast = index === total - 1
 
@@ -99,15 +105,40 @@ function JourneyCard({
                 {tag}
               </span>
             ))}
-            {showLink && item.link && (
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ml-auto flex items-center gap-1 text-xs text-cyber/60 hover:text-cyber transition-colors font-mono"
-              >
-                {t(timelineUi.viewLink, lang)} <ExternalLink className="w-3 h-3" />
-              </a>
+            {(showRepo || showLink || showVideoLink) && (
+              <div className="ml-auto flex flex-wrap items-center justify-end gap-3 shrink-0">
+                {showRepo && item.repoLink && (
+                  <a
+                    href={item.repoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-xs text-cyber/60 hover:text-cyber transition-colors font-mono"
+                  >
+                    {t(timelineUi.repoLink, lang)} <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
+                {showLink && item.link && (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-xs text-cyber/60 hover:text-cyber transition-colors font-mono"
+                  >
+                    {t(isYoutubeUrl(item.link) ? timelineUi.watchDemo : timelineUi.viewLink, lang)}{' '}
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
+                {showVideoLink && item.videoLink && (
+                  <a
+                    href={item.videoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-xs text-cyber/60 hover:text-cyber transition-colors font-mono"
+                  >
+                    {t(timelineUi.watchDemo, lang)} <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
+              </div>
             )}
           </div>
         </div>
