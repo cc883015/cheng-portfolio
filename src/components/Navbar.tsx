@@ -35,7 +35,7 @@ export default function Navbar() {
           : 'nav-glass border-b border-transparent'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-2">
+      <div className="max-w-7xl mx-auto px-3 sm:px-5 h-16 flex items-center gap-2 min-w-0">
         <div className="flex-1 flex justify-start items-center gap-2 min-w-0">
           <img
             src="/images/brisbane-council-mark.svg"
@@ -66,17 +66,17 @@ export default function Navbar() {
           </a>
         </div>
 
-        <div className="flex-1 hidden lg:flex items-center gap-1.5 flex-wrap justify-end min-w-0">
+        <div className="flex-1 hidden lg:flex items-center gap-1 xl:gap-1.5 flex-nowrap justify-end min-w-0 overflow-x-auto overflow-y-hidden overscroll-x-contain py-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {navKeys.map((item) => (
             <a
               key={item.hash}
               href={`#${item.hash}`}
-              className="glass-nav-link text-[11px] xl:text-xs px-2.5 py-2 rounded-xl text-white/55 hover:text-cyber font-mono tracking-wide transition-colors"
+              className="glass-nav-link shrink-0 whitespace-nowrap text-[10px] xl:text-[11px] 2xl:text-xs px-2 xl:px-2.5 py-1.5 xl:py-2 rounded-xl text-white/55 hover:text-cyber font-mono tracking-wide transition-colors"
             >
               {t(navLabels[item.key], lang)}
             </a>
           ))}
-          <div className="glass-icon-btn flex items-center rounded-xl p-0.5 ml-1">
+          <div className="glass-nav-link flex shrink-0 items-center rounded-xl p-0.5 ml-1">
             <button
               type="button"
               onClick={() => setLang('en')}
@@ -99,7 +99,7 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-2 lg:hidden shrink-0">
-          <div className="glass-icon-btn flex items-center rounded-xl p-0.5">
+          <div className="glass-nav-link flex items-center rounded-xl p-0.5">
             <button
               type="button"
               onClick={() => setLang('en')}

@@ -4,7 +4,10 @@ import type { TimelineItem } from '../data/portfolio'
 /** Queensland Government — site-wide nav CTA (label kept in English per design). */
 export const navBrisbaneCta = {
   href: 'https://www.qld.gov.au/',
-  label: { en: 'dedicate to the better brisbane', zh: 'dedicate to the better brisbane' } satisfies L10n,
+  label: {
+    en: 'Dedicate to the Better Brisbane',
+    zh: 'Dedicate to the Better Brisbane',
+  } satisfies L10n,
 }
 
 export const navLabels: Record<string, L10n> = {
