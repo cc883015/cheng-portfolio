@@ -497,6 +497,14 @@ body::before {
     0 0 20px rgba(212, 175, 55, 0.15);
 }
 
+/* CTA in left cluster — frees center for full-width nav */
+.nav-gold-cta--inline {
+  text-align: left;
+  max-width: none;
+  white-space: nowrap;
+  align-items: center;
+}
+
 /* Year plan — in-progress ring */
 .year-plan-progress-ring {
   width: 1.125rem;

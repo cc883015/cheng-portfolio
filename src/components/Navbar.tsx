@@ -36,7 +36,7 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-5 h-16 flex items-center gap-2 min-w-0">
-        <div className="flex-1 flex justify-start items-center gap-2 min-w-0">
+        <div className="flex justify-start items-center gap-2 sm:gap-3 min-w-0 shrink-0">
           <img
             src="/images/brisbane-council-mark.svg"
             alt=""
@@ -53,14 +53,11 @@ export default function Navbar() {
               {t(navLabels.brandHome, lang)}
             </span>
           </a>
-        </div>
-
-        <div className="hidden lg:flex shrink-0 justify-center px-1">
           <a
             href={navBrisbaneCta.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="nav-gold-cta font-mono"
+            className="nav-gold-cta nav-gold-cta--inline font-mono hidden lg:inline-flex text-left"
           >
             {t(navBrisbaneCta.label, lang)}
           </a>
