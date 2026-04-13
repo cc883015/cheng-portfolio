@@ -72,7 +72,7 @@ export default function AwardsSection() {
   if (!items.length) return null
 
   return (
-    <section id="awards" className="py-24 sm:py-28 px-6 scroll-mt-24">
+    <section id="awards" className="section-cv py-24 sm:py-28 px-6 scroll-mt-24">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center gap-3 mb-10 sm:mb-12">
           <span className="font-mono text-xs text-cyber/60 tracking-[0.3em]">{t(awardsUi.sectionNum, lang)}</span>

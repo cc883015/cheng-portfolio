@@ -11,7 +11,7 @@ export default function Contact() {
   const { lang } = useLanguage()
 
   return (
-    <section id="contact" className="py-32 px-6 scroll-mt-24">
+    <section id="contact" className="section-cv py-32 px-6 scroll-mt-24">
       <div ref={ref} className="reveal max-w-4xl mx-auto text-center">
         <div className="flex items-center gap-3 mb-12 justify-center">
           <span className="font-mono text-xs text-cyber/60 tracking-[0.3em]">{t(contactUi.sectionNum, lang)}</span>

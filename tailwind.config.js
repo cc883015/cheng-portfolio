@@ -33,21 +33,15 @@ export default {
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
-        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
         'slide-up': 'slideUp 0.8s ease-out forwards',
         'slide-in-left': 'slideInLeft 0.8s ease-out forwards',
         'fade-in': 'fadeIn 1s ease-out forwards',
-        'scan-line': 'scanLine 4s linear infinite',
         'typing': 'typing 3s steps(30) forwards',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-12px)' },
-        },
-        pulseGlow: {
-          '0%, 100%': { opacity: '0.4', filter: 'blur(20px)' },
-          '50%': { opacity: '0.8', filter: 'blur(30px)' },
         },
         slideUp: {
           '0%': { opacity: '0', transform: 'translateY(40px)' },
@@ -60,10 +54,6 @@ export default {
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
-        },
-        scanLine: {
-          '0%': { transform: 'translateY(-100%)' },
-          '100%': { transform: 'translateY(100vh)' },
         },
         typing: {
           '0%': { width: '0' },

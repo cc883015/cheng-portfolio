@@ -17,11 +17,8 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden py-24">
       <div className="absolute inset-0 grid-bg" />
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-cyber/10 rounded-full blur-[120px] animate-pulse-glow" />
-      <div
-        className="absolute bottom-1/4 -right-32 w-80 h-80 bg-cyan-500/8 rounded-full blur-[100px] animate-pulse-glow"
-        style={{ animationDelay: '1.5s' }}
-      />
+      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-cyber/10 rounded-full blur-[64px] opacity-50 pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-32 w-80 h-80 bg-cyan-500/8 rounded-full blur-[56px] opacity-45 pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-5xl mx-auto metal-gold-frame animate-fade-in">
         <div className="metal-gold-frame__inner about-gold-inner p-6 sm:p-8 lg:p-10 flex flex-col items-center lg:flex-row lg:items-center lg:justify-center gap-10 lg:gap-14">

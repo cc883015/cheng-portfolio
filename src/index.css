@@ -27,7 +27,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   scroll-padding-top: 5.5rem;
   scrollbar-width: thin;
   scrollbar-color: var(--cyber-dim) var(--midnight-deep);
@@ -64,13 +64,7 @@ body::before {
     transparent 75%,
     rgba(45, 212, 191, 0.06)
   );
-  animation: ambientRotate 100s linear infinite;
-}
-
-@keyframes ambientRotate {
-  to {
-    transform: rotate(360deg);
-  }
+  /* 旋转整层 conic 开销大，改为静态渐变以减轻持续合成 */
 }
 
 /* Floating orbs (mounted in HomePage) */
@@ -85,7 +79,7 @@ body::before {
 .ambient-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(72px);
+  filter: blur(48px);
   will-change: transform;
   animation: ambientDrift 22s ease-in-out infinite;
 }
@@ -153,6 +147,12 @@ body::before {
   }
 }
 
+/* 视口外区块延迟布局/绘制，减轻长页滚动成本 */
+.section-cv {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
+}
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--midnight-deep); }
@@ -175,26 +175,6 @@ body::before {
   pointer-events: none;
   opacity: 0.015;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ── Scan Line Effect ── */
-.scan-line::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--cyber), transparent);
-  opacity: 0.06;
-  animation: scanLine 4s linear infinite;
-  pointer-events: none;
-  z-index: 9998;
-}
-
-@keyframes scanLine {
-  0% { transform: translateY(-10px); }
-  100% { transform: translateY(100vh); }
 }
 
 /* ── Glow Utilities ── */
@@ -330,15 +310,15 @@ body::before {
 /* ── Navbar glass ── */
 .nav-glass {
   background: rgba(12, 14, 22, 0.52);
-  backdrop-filter: blur(22px) saturate(165%);
-  -webkit-backdrop-filter: blur(22px) saturate(165%);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
   border-bottom-color: rgba(255, 255, 255, 0.06);
 }
 
 .nav-glass-scrolled {
   background: rgba(10, 12, 20, 0.82);
-  backdrop-filter: blur(28px) saturate(175%);
-  -webkit-backdrop-filter: blur(28px) saturate(175%);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
   border-bottom-color: rgba(255, 255, 255, 0.08);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }

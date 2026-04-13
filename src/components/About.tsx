@@ -22,7 +22,7 @@ export default function About() {
   const { lang } = useLanguage()
 
   return (
-    <section id="about" className="py-32 px-6 scroll-mt-24">
+    <section id="about" className="section-cv py-32 px-6 scroll-mt-24">
       <div ref={ref} className="reveal max-w-4xl mx-auto">
         <div className="flex items-center gap-3 mb-12">
           <span className="font-mono text-xs text-cyber/60 tracking-[0.3em]">{t(aboutUi.sectionNum, lang)}</span>
