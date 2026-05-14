@@ -58,34 +58,88 @@ export const aboutUi: {
     zh: '致力于为客户打造更好的数字体验。',
   },
   galleryLabel: { en: 'GALLERY', zh: '附图' },
-  yearPlanTitle: { en: 'One-year plan', zh: '一年计划' },
+  yearPlanTitle: {
+    en: 'Certification & postgraduate roadmap',
+    zh: '证书与升学规划',
+  },
   yearPlanItems: [
     {
+      id: 'qut',
+      label: {
+        en: 'QUT — Master of IT (Cybersecurity) · Jul 2024 – Jun 2026',
+        zh: 'QUT — 信息技术硕士（网络安全）· 2024年7月 – 2026年6月',
+      },
+      status: 'progress',
+    },
+    {
+      id: 'scu-hotel',
+      label: {
+        en: 'Southern Cross University — Graduate Diploma in Hotel Leadership · 2026–2027',
+        zh: '南十字星大学 — 酒店管理领导力研究生文凭 · 2026–2027',
+      },
+      status: 'planned',
+    },
+    {
+      id: 'gt-omscs',
+      label: {
+        en: 'Georgia Tech — MS Computer Science (AI) · OMSCS · 2028–2031',
+        zh: '佐治亚理工 — 计算机科学硕士（AI）· OMSCS · 2028–2031',
+      },
+      status: 'planned',
+    },
+    {
       id: 'gits',
-      label: { en: 'Google IT Support Professional Certificate', zh: 'Google IT Support 专业证书' },
+      label: { en: 'Google IT Support Professional Certificate · 2026', zh: 'Google IT Support 专业证书 · 2026' },
       status: 'done',
     },
     {
       id: 'gcsec',
-      label: { en: 'Google Cybersecurity Professional Certificate', zh: 'Google Cybersecurity 专业证书' },
+      label: { en: 'Google Cybersecurity Professional Certificate · target 2026', zh: 'Google Cybersecurity 专业证书 · 目标 2026' },
       status: 'progress',
     },
     {
       id: 'az900',
-      label: { en: 'Microsoft AZ-900 (Azure Fundamentals)', zh: 'Microsoft AZ-900（Azure 基础）' },
+      label: { en: 'Microsoft AZ-900 — Azure Fundamentals · target 2026', zh: 'Microsoft AZ-900 — Azure 基础 · 目标 2026' },
+      status: 'progress',
+    },
+    {
+      id: 'sc900',
+      label: { en: 'Microsoft SC-900 — Security & Identity Fundamentals · target 2026', zh: 'Microsoft SC-900 — 安全与身份基础 · 目标 2026' },
+      status: 'planned',
+    },
+    {
+      id: 'ccst',
+      label: { en: 'Cisco CCST Networking · target 2027', zh: 'Cisco CCST Networking · 目标 2027' },
+      status: 'planned',
+    },
+    {
+      id: 'techplus',
+      label: { en: 'CompTIA Tech+ · target 2027', zh: 'CompTIA Tech+ · 目标 2027' },
+      status: 'planned',
+    },
+    {
+      id: 'az104',
+      label: { en: 'Microsoft AZ-104 — Azure Administrator · target 2027', zh: 'Microsoft AZ-104 — Azure 管理员 · 目标 2027' },
+      status: 'planned',
+    },
+    {
+      id: 'ccna',
+      label: { en: 'Cisco CCNA · target 2028', zh: 'Cisco CCNA · 目标 2028' },
       status: 'planned',
     },
     {
       id: 'aplus',
-      label: { en: 'CompTIA A+', zh: 'CompTIA A+' },
+      label: { en: 'CompTIA A+ · target 2028', zh: 'CompTIA A+ · 目标 2028' },
       status: 'planned',
     },
     {
-      id: 'tafe-hm',
-      label: {
-        en: 'Jul 2026 intake — QLD TAFE one-year hotel management preparatory program',
-        zh: '2026 年 7 月入读昆士兰 TAFE 一年期酒店管理预备课程',
-      },
+      id: 'secplus',
+      label: { en: 'CompTIA Security+ · target 2029', zh: 'CompTIA Security+ · 目标 2029' },
+      status: 'planned',
+    },
+    {
+      id: 'ccnp',
+      label: { en: 'Cisco CCNP · target 2030', zh: 'Cisco CCNP · 目标 2030' },
       status: 'planned',
     },
   ],
