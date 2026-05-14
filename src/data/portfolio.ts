@@ -89,14 +89,18 @@ export const profile = {
   bio: {
     en: `I'm Charles Chen, currently based in Brisbane, Australia. I'm committed to strengthening my computing foundations and I'm especially interested in AI-assisted coding and security. At QUT I'm pursuing a Master of Information Technology (Cybersecurity), combining research-oriented development with deeper security study. My bachelor's training in software engineering and economics helps me reason about systems, cost, and risk together.
 
-Previously I worked as an imaging / ISP engineer at two listed companies—Huaqin Technology and Desay SV—with extensive hands-on experience in mobile and automotive camera bring-up, debugging, and lab/field validation. Today I serve as IT technical support and hotel manager with ITIGA (Australia Travel & Investment Group), balancing hospitality operations with continuous technical practice. I hold the Google IT Support Professional Certificate and the Google Cybersecurity Professional Certificate.
+After QUT I plan a Graduate Diploma in Hotel Leadership at Southern Cross University (2026–2027), then long-term graduate study toward a Master of Science in Computer Science (AI) through Georgia Tech OMSCS (2028–2031). Alongside that roadmap I'm preparing vendor certifications (Google, Microsoft Azure fundamentals, Cisco, CompTIA) on the timeline reflected on this site.
+
+Previously I worked as an imaging / ISP engineer at two listed companies—Huaqin Technology and Desay SV—with extensive hands-on experience in mobile and automotive camera bring-up, debugging, and lab/field validation. Today I serve as IT technical support and hotel manager with ITIGA (Australia Travel & Investment Group), balancing hospitality operations with continuous technical practice. I hold the Google IT Support Professional Certificate and am completing the Google Cybersecurity Professional Certificate.
 
 On GitHub I maintain full-stack and engineering projects (Node.js, React, MongoDB, CI/CD, Flask, Python, BLE/MQTT IoT, and ML coursework). On CSDN I write about networking, security, cryptography, camera ISP debugging and testing, cloud, and DevOps.
 
 I value clear documentation, reproducible experiments, and implementations that remain defensible under real threats and constraints.`,
     zh: `我是 Charles Chen，目前常驻澳大利亚布里斯班。我致力于持续完善计算机学科基础，对于 AI coding 以及安全领域非常感兴趣，在昆士兰科技大学（QUT）攻读信息技术硕士（网络安全方向），并侧重研究开发与安全领域的深入结合。本科阶段具有软件工程与经济学双重训练，让我更习惯从系统、成本与风险角度理解技术决策。
 
-除学业外，我曾经在两家上市公司担任影像开发工程师，分别是华勤技术股份有限公司（HQ）以及德赛西威汽车电子股份有限公司（Desay SV），对于手机与车载影像调试、测试有着丰富的经验。目前在澳洲国旅投资集团（ITIGA）担任 IT 技术支持/酒店经理，在运营与沟通中保持与实践并行的学习习惯。已取得 Google IT Support、Google Cybersecurity 等专业证书。我在 GitHub 维护多类工程实践（Node.js、React、MongoDB、CI/CD、Flask、Python、BLE/MQTT 物联网与机器学习课程项目等），并在 CSDN 整理网络、安全、密码学、影像调试/测试，以及云与 DevOps 相关笔记。
+在 QUT 之后，我规划于南十字星大学修读酒店管理领导力研究生文凭（2026–2027），并中长期通过佐治亚理工 OMSCS 攻读计算机科学硕士（人工智能方向，2028–2031）。与此并行的是按本站履历所示时间线推进的厂商认证（Google、Microsoft Azure 基础、Cisco、CompTIA 等）。
+
+除学业外，我曾经在两家上市公司担任影像开发工程师，分别是华勤技术股份有限公司（HQ）以及德赛西威汽车电子股份有限公司（Desay SV），对于手机与车载影像调试、测试有着丰富的经验。目前在澳洲国旅投资集团（ITIGA）担任 IT 技术支持/酒店经理，在运营与沟通中保持与实践并行的学习习惯。已取得 Google IT Support 专业证书，并正在完成 Google Cybersecurity 专业证书。我在 GitHub 维护多类工程实践（Node.js、React、MongoDB、CI/CD、Flask、Python、BLE/MQTT 物联网与机器学习课程项目等），并在 CSDN 整理网络、安全、密码学、影像调试/测试，以及云与 DevOps 相关笔记。
 
 我重视文档清晰、实验可复现，以及能在真实威胁与约束下站得住脚的实现。`,
   } satisfies L10n,
@@ -312,6 +316,36 @@ const timelineRaw: TimelineItem[] = [
     },
     tags: ['Cybersecurity', 'Networking', 'Cryptography'],
     images: ['/images/portfolio/edu-qut.jpg'],
+  },
+  {
+    date: '2027-06',
+    displayDate: { en: '2026 – 2027', zh: '2026 – 2027' },
+    type: 'education',
+    title: { en: 'Graduate Diploma in Hotel Leadership', zh: '酒店管理领导力研究生文凭' },
+    subtitle: { en: 'Southern Cross University', zh: '南十字星大学' },
+    description: {
+      en: 'Planned postgraduate pathway after QUT: hospitality leadership alongside ongoing technical practice.',
+      zh: '计划在完成昆士兰科技大学（QUT）学业后续读，与酒店运营及技术实践形成互补。',
+    },
+    tags: ['Hospitality', 'Leadership'],
+  },
+  {
+    date: '2031-06',
+    displayDate: { en: '2028 – 2031', zh: '2028 – 2031' },
+    type: 'education',
+    title: {
+      en: 'Master of Science in Computer Science (Artificial Intelligence)',
+      zh: '计算机科学理学硕士（人工智能方向）',
+    },
+    subtitle: {
+      en: 'Georgia Institute of Technology — Online MS (OMSCS)',
+      zh: '佐治亚理工学院 — 在线计算机硕士（OMSCS）',
+    },
+    description: {
+      en: 'Long-term goal: deepen graduate-level computer science with an artificial intelligence focus through Georgia Tech’s OMSCS.',
+      zh: '中长期目标：通过佐治亚理工 OMSCS 在研究生阶段系统深化计算机科学与人工智能方向能力。',
+    },
+    tags: ['OMSCS', 'Computer Science', 'AI'],
   },
   {
     date: '2024-06',
@@ -782,14 +816,122 @@ Skills: DevOps-minded iteration, managed database usage, full-stack debugging ac
     link: 'https://github.com/cc883015/TaskManager_Aws_setup',
   },
   {
+    date: '2030-12',
+    displayDate: { en: 'Target 2030', zh: '目标 2030' },
+    type: 'cert',
+    title: { en: 'Cisco CCNP', zh: 'Cisco CCNP' },
+    subtitle: { en: 'Cisco · preparation roadmap', zh: 'Cisco · 备考规划' },
+    description: {
+      en: 'Advanced enterprise networking track—planned after foundational Cisco and cloud security milestones on this roadmap.',
+      zh: '高级企业网络方向证书，规划在完成 Cisco 基础与云安全相关里程碑后继续推进。',
+    },
+    tags: ['Cisco', 'Networking'],
+  },
+  {
+    date: '2029-12',
+    displayDate: { en: 'Target 2029', zh: '目标 2029' },
+    type: 'cert',
+    title: { en: 'CompTIA Security+', zh: 'CompTIA Security+' },
+    subtitle: { en: 'CompTIA · preparation roadmap', zh: 'CompTIA · 备考规划' },
+    description: {
+      en: 'Vendor-neutral security baseline aligned with helpdesk-to-security progression and Azure security fundamentals.',
+      zh: '与从技术支持向安全岗位延伸、以及 Azure 安全基础相衔接的厂商中立安全基线认证。',
+    },
+    tags: ['Security', 'CompTIA'],
+  },
+  {
+    date: '2028-12',
+    displayDate: { en: 'Target 2028', zh: '目标 2028' },
+    type: 'cert',
+    title: { en: 'CompTIA A+', zh: 'CompTIA A+' },
+    subtitle: { en: 'CompTIA · preparation roadmap', zh: 'CompTIA · 备考规划' },
+    description: {
+      en: 'Core IT support and hardware/software troubleshooting credential supporting service-desk depth.',
+      zh: '覆盖软硬件与支持场景的核心 IT 支持类认证，用于夯实服务台与终端支持能力。',
+    },
+    tags: ['IT Support', 'CompTIA'],
+  },
+  {
+    date: '2028-06',
+    displayDate: { en: 'Target 2028', zh: '目标 2028' },
+    type: 'cert',
+    title: { en: 'Cisco CCNA', zh: 'Cisco CCNA' },
+    subtitle: { en: 'Cisco · preparation roadmap', zh: 'Cisco · 备考规划' },
+    description: {
+      en: 'Foundational routing, switching, and IP services—bridge from Tech+/CCST toward CCNP.',
+      zh: '路由交换与 IP 服务基础，衔接 Tech+/CCST 并向 CCNP 发展。',
+    },
+    tags: ['Cisco', 'Networking'],
+  },
+  {
+    date: '2027-12',
+    displayDate: { en: 'Target 2027', zh: '目标 2027' },
+    type: 'cert',
+    title: { en: 'Microsoft AZ-104 — Azure Administrator', zh: 'Microsoft AZ-104 — Azure 管理员' },
+    subtitle: { en: 'Microsoft · preparation roadmap', zh: 'Microsoft · 备考规划' },
+    description: {
+      en: 'Azure administrator role skills (identity, compute, storage, networking). Resume roadmap groups this with Azure security progression.',
+      zh: 'Azure 管理员角色技能（身份、计算、存储、网络）。与简历中的 Azure 安全学习路径一并规划。',
+    },
+    tags: ['Azure', 'Microsoft'],
+  },
+  {
+    date: '2027-06',
+    displayDate: { en: 'Target 2027', zh: '目标 2027' },
+    type: 'cert',
+    title: { en: 'CompTIA Tech+', zh: 'CompTIA Tech+' },
+    subtitle: { en: 'CompTIA · preparation roadmap', zh: 'CompTIA · 备考规划' },
+    description: {
+      en: 'Entry-level IT concepts and troubleshooting—early milestone before A+ depth.',
+      zh: '入门级 IT 概念与排障，作为 A+ 深度备考前的早期里程碑。',
+    },
+    tags: ['CompTIA', 'IT Fundamentals'],
+  },
+  {
+    date: '2027-03',
+    displayDate: { en: 'Target 2027', zh: '目标 2027' },
+    type: 'cert',
+    title: { en: 'Cisco Certified Support Technician (CCST) Networking', zh: 'Cisco CCST Networking' },
+    subtitle: { en: 'Cisco · preparation roadmap', zh: 'Cisco · 备考规划' },
+    description: {
+      en: 'Cisco entry networking and support technician credential—stepping stone toward CCNA.',
+      zh: 'Cisco 入门级网络与支持技术员认证，作为通往 CCNA 的垫脚石。',
+    },
+    tags: ['Cisco', 'Networking'],
+  },
+  {
+    date: '2026-09',
+    displayDate: { en: 'Target 2026', zh: '目标 2026' },
+    type: 'cert',
+    title: { en: 'Microsoft SC-900 — Security, Compliance, and Identity Fundamentals', zh: 'Microsoft SC-900 — 安全、合规与身份基础' },
+    subtitle: { en: 'Microsoft · preparation roadmap', zh: 'Microsoft · 备考规划' },
+    description: {
+      en: 'Security, compliance, and identity concepts across Microsoft cloud—pairs with AZ-900 before role-based Azure security exams.',
+      zh: '微软云上的安全、合规与身份概念，与 AZ-900 衔接并为后续 Azure 安全类考试打基础。',
+    },
+    tags: ['Azure', 'Security'],
+  },
+  {
+    date: '2026-08',
+    displayDate: { en: 'Target 2026', zh: '目标 2026' },
+    type: 'cert',
+    title: { en: 'Microsoft AZ-900 — Azure Fundamentals', zh: 'Microsoft AZ-900 — Azure 基础' },
+    subtitle: { en: 'Microsoft · preparation roadmap', zh: 'Microsoft · 备考规划' },
+    description: {
+      en: 'Cloud concepts, core Azure services, pricing, and governance—foundation for AZ-104 and security-aligned study.',
+      zh: '云概念、核心 Azure 服务、定价与治理，为 AZ-104 及安全向学习打基础。',
+    },
+    tags: ['Azure', 'Microsoft'],
+  },
+  {
     date: '2026-05',
-    displayDate: { en: 'Expected May 2026', zh: '预计 2026年5月' },
+    displayDate: { en: 'Target 2026', zh: '目标 2026' },
     type: 'cert',
     title: { en: 'Google Cybersecurity Professional Certificate', zh: 'Google 网络安全专业证书' },
-    subtitle: { en: 'Google / Coursera (in progress)', zh: 'Google / Coursera（进行中）' },
+    subtitle: { en: 'Google / Coursera · in preparation', zh: 'Google / Coursera · 备考中' },
     description: {
-      en: 'Expected completion May 2026. Covers security frameworks, threat analysis, SIEM-style tooling, incident response, and Python automation.',
-      zh: '预计 2026 年 5 月取得。内容涵盖安全框架、威胁分析、类 SIEM 工具、事件响应与安全向 Python 自动化。',
+      en: 'Roadmap: complete in 2026 alongside AZ-900 / SC-900. Covers security frameworks, threat analysis, SIEM-style tooling, incident response, and Python automation.\n\nProgramme: https://www.coursera.org/professional-certificates/google-cybersecurity',
+      zh: '规划于 2026 年完成，与 AZ-900 / SC-900 等并行推进。涵盖安全框架、威胁分析、类 SIEM 工具、事件响应与 Python 自动化等。\n\n课程主页：https://www.coursera.org/professional-certificates/google-cybersecurity',
     },
     tags: ['Cybersecurity', 'SIEM', 'Python'],
     images: ['/images/portfolio/cert-google-cybersecurity.jpg'],
